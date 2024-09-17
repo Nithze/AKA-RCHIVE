@@ -28,7 +28,7 @@ const shiftData = [
 
 export const Dashboard = () => {
     return (
-        <div className="dashboard-container">
+        <div className="container">
             <Sidebar className="sidebar" />
             {/* Content */}
             <div className="content">
