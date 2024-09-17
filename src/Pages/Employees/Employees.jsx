@@ -1,12 +1,15 @@
-import React from 'react'
+import React from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
 import './Employees.css';
 
-
 const shiftData = [
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: '09:00 - 17:00', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
 ];
-
 
 export const Employees = () => {
     return (
@@ -25,7 +28,6 @@ export const Employees = () => {
                 {/*End Header */}
                 {/* -------------------------------- */}
 
-
                 {/* -------------------------------- */}
                 {/* Main Table & card maybe */}
                 {/* -------------------------------- */}
@@ -37,9 +39,10 @@ export const Employees = () => {
                                 <table>
                                     <colgroup>
                                         <col style={{ width: '15%' }} />
-                                        <col style={{ width: '20%' }} />
+                                        <col style={{ width: '10%' }} />
                                         <col style={{ width: '5%' }} />
-                                        <col style={{ width: '30%' }} />
+                                        <col style={{ width: '15%' }} />
+                                        <col style={{ width: '15%' }} />
                                     </colgroup>
                                     <thead>
                                         <tr>
@@ -47,6 +50,7 @@ export const Employees = () => {
                                             <th className="date-add">Date added</th>
                                             <th className="role">Role</th>
                                             <th className="shift">Shift</th>
+                                            <th className="action">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -65,6 +69,10 @@ export const Employees = () => {
                                                     <div>{item.shift}</div>
                                                     <div className="shift-time">{item.shiftTime}</div>
                                                 </td>
+                                                <td className="action">
+                                                    <button className="btn" onClick={() => handleEdit(index)}>Edit</button>
+                                                    <button className="warning-btn" onClick={() => handleDelete(index)}>Delete</button>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -72,18 +80,28 @@ export const Employees = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 {/* -------------------------------- */}
                 {/* Main Table & card maybe */}
                 {/* -------------------------------- */}
-
             </div>
             {/* Content */}
         </div>
+    );
 
-    )
-}
-export default Employees
+    // Handler function untuk edit
+    function handleEdit(index) {
+        console.log(`Edit employee at index ${index}`);
+        // Tambahkan logic untuk proses edit di sini
+    }
+
+    // Handler function untuk delete
+    function handleDelete(index) {
+        console.log(`Delete employee at index ${index}`);
+        // Tambahkan logic untuk proses delete di sini
+    }
+};
+
+export default Employees;
 
