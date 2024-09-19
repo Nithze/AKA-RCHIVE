@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    color: #fff;
+    padding: 0;
+    background-color: #1E1E1E;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    /* Mengisi seluruh tinggi viewport */
+}
+
+.sidebar {
+    width: 350px;
+    /* Lebar sidebar */
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+    justify-content: space-between;
+}
+
+.content {
+    margin-left: 290px;
+    /* Memberi ruang untuk sidebar */
+    padding: 40px;
+    width: calc(100% - 250px);
+    /* Mengisi sisa ruang */
+    background-color: #141414;
+    /* Warna latar belakang konten */
+    height: 100vh;
+    /* Tinggi konten penuh */
+    overflow-y: auto;
+    /* Gulir jika konten terlalu tinggi */
+}
+
+.btn {
+    width: fit-content;
+    background-color: #141414;
+    border: 2px solid #28282a;
+    color: #fff;
+    padding: 10px 25px 10px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: ease 0.2s;
+    margin: 10px;
+
+}
+.btn:hover {
+    background-color: #28282A;
+    color: #fff;
+
+}
+/* .btn-sec { */
+/*     width: fit-content; */
+/*     background-color: #28282a; */
+/*     border: 2px solid #28282a; */
+/*     color: #fff; */
+/*     padding: 10px 25px 10px 25px; */
+/*     font-size: 16px; */
+/*     border-radius: 8px; */
+/*     transition: ease 0.2s; */
+/*     margin: 10px; */
+/**/
+/* } */
+/* .btn-sec:hover { */
+/*     background-color: #141414; */
+/*     color: #fff; */
+/**/
+/* } */
+.warning-btn {
+    width: fit-content;
+    background-color: #141414;
+    border: 2px solid #28282a;
+    color: #ff0000;
+    padding: 10px 25px 10px 25px;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: ease 0.2s;
+    margin: 10px;
+}
+.warning-btn:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.bx {
+    font-size: 20px;
+    padding-right: 10px;
+    align-self: center;
+}

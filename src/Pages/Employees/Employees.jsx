@@ -3,12 +3,27 @@ import Sidebar from '../../Components/Sidebar.jsx';
 import './Employees.css';
 
 const shiftData = [
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', dateAdded: 'Presence', presenceTime: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
+    { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
 ];
 
 export const Employees = () => {
@@ -21,8 +36,16 @@ export const Employees = () => {
                 {/* Header */}
                 {/* -------------------------------- */}
                 <header className="header">
-                    <h1>Manage your employees</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                    <div className="header-left">
+                        <h1>Manage your employees</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                    </div>
+                    <div className="header-right">
+                        <button className="btn" onClick={() => handleEdit(index)}><i className='bx bx-download icon'></i>
+                            Download CSV</button>
+                        <button className="btn" onClick={() => handleEdit(index)}><i className='bx bx-user-plus icon'></i>
+                            Add Employee</button>
+                    </div>
                 </header>
                 {/* -------------------------------- */}
                 {/*End Header */}
@@ -62,7 +85,7 @@ export const Employees = () => {
                                                 </td>
                                                 <td className={`date-add ${item.dateAdded.replace(' ', '-').toLowerCase()}`}>
                                                     <div>{item.presence}</div>
-                                                    <div className="presence-time">{item.presenceTime}</div>
+                                                    <div className="date-add">{item.dateAdded}</div>
                                                 </td>
                                                 <td className="role"><span className="role-chip">{item.role}</span></td>
                                                 <td className="shift">

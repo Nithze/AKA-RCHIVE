@@ -1,35 +1,52 @@
-body {
-    margin: 0;
-    color: #fff;
-    padding: 0;
-    background-color: #1E1E1E;
-    font-family: Arial, sans-serif;
+.header {
+    animation: slideInFromLeft 0.7s cubic-bezier(0, .54, .58, 1);
+}
+.table-container {
+    animation: opacity 1s ;
+}
+.card-left {
+    animation: slideInFromLeft 1s cubic-bezier(0, .54, .58, 1);
 }
 
-.container {
-    display: flex;
-    height: 100vh;
-    /* Mengisi seluruh tinggi viewport */
+.card-right {
+    animation: slideInFromRight 1s cubic-bezier(0, .54, .58, 1);
 }
 
-.sidebar {
-    width: 350px;
-    /* Lebar sidebar */
+@keyframes opacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
-.content {
-    margin-left: 290px;
-    /* Memberi ruang untuk sidebar */
-    padding: 40px;
-    width: calc(100% - 250px);
-    /* Mengisi sisa ruang */
-    background-color: #141414;
-    /* Warna latar belakang konten */
-    height: 100vh;
-    /* Tinggi konten penuh */
-    overflow-y: auto;
-    /* Gulir jika konten terlalu tinggi */
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+        /* Memperbaiki opacity awal */
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 
 
 .switches-container {
@@ -107,9 +124,6 @@ body {
     opacity: 1;
 }
 
-.header {
-    margin-bottom: 40px;
-}
 
 .card-container {
     display: flex;

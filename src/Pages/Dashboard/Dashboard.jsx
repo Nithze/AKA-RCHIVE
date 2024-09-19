@@ -36,30 +36,34 @@ export const Dashboard = () => {
                 {/* Header */}
                 {/* -------------------------------- */}
                 <header className="header">
-                    <h1>Dashboard</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
-                    <div className="switches-container">
-                        <input
-                            type="radio"
-                            id="switchNormal"
-                            name="switchPlan"
-                            value="Monthly"
-                            defaultChecked
-                        />
-                        <input
-                            type="radio"
-                            id="switchHighlight"
-                            name="switchPlan"
-                            value="Yearly"
-                        />
-                        <label htmlFor="switchNormal">Normal View</label>
-                        <label htmlFor="switchHighlight">Highlight View</label>
-                        <div className="switch-wrapper">
-                            <div className="switch">
-                                <div>Normal View</div>
-                                <div>Highlight View</div>
+                    <div className="header-left">
+                        <h1>Dashboard</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                        <div className="switches-container">
+                            <input
+                                type="radio"
+                                id="switchNormal"
+                                name="switchPlan"
+                                value="Monthly"
+                                defaultChecked
+                            />
+                            <input
+                                type="radio"
+                                id="switchHighlight"
+                                name="switchPlan"
+                                value="Yearly"
+                            />
+                            <label htmlFor="switchNormal">Normal View</label>
+                            <label htmlFor="switchHighlight">Highlight View</label>
+                            <div className="switch-wrapper">
+                                <div className="switch">
+                                    <div>Normal View</div>
+                                    <div>Highlight View</div>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="header-right">
                     </div>
                 </header>
                 {/* -------------------------------- */}
