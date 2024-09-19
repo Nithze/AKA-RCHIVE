@@ -1,6 +1,6 @@
+import './Employees.css';
 import React from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
-import './Employees.css';
 
 const shiftData = [
     { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },

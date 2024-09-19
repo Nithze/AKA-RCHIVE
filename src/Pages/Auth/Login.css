@@ -1,5 +1,5 @@
-body {
-    background-color: #1E1E1E;
+body, html {
+    background-color: #09090b;
 }
 
 .login-container {
@@ -7,10 +7,11 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: #09090b;
 }
 
 .login-card {
-    background: #171717;
+    background: #09090b;
     padding: 30px;
     border-radius: 8px;
     border: 2px solid #28282A;
@@ -50,7 +51,7 @@ input {
     border: 2px solid #28282A;
     border-radius: 4px;
     font-size: 14px;
-    background-color: #141414;
+    background-color: #09090b;
     outline: none;
     color: #fff;
     box-sizing: border-box;

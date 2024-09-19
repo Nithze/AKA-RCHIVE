@@ -1,5 +1,5 @@
-import React from 'react';
 import './Dashboard.css';
+import React from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
 
 
@@ -28,146 +28,148 @@ const shiftData = [
 
 export const Dashboard = () => {
     return (
-        <div className="container">
-            <Sidebar className="sidebar" />
-            {/* Content */}
-            <div className="content">
-                {/* -------------------------------- */}
-                {/* Header */}
-                {/* -------------------------------- */}
-                <header className="header">
-                    <div className="header-left">
-                        <h1>Dashboard</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
-                        <div className="switches-container">
-                            <input
-                                type="radio"
-                                id="switchNormal"
-                                name="switchPlan"
-                                value="Monthly"
-                                defaultChecked
-                            />
-                            <input
-                                type="radio"
-                                id="switchHighlight"
-                                name="switchPlan"
-                                value="Yearly"
-                            />
-                            <label htmlFor="switchNormal">Normal View</label>
-                            <label htmlFor="switchHighlight">Highlight View</label>
-                            <div className="switch-wrapper">
-                                <div className="switch">
-                                    <div>Normal View</div>
-                                    <div>Highlight View</div>
+        <>
+            <div className="container">
+                <Sidebar className="sidebar" />
+                {/* Content */}
+                <div className="content">
+                    {/* -------------------------------- */}
+                    {/* Header */}
+                    {/* -------------------------------- */}
+                    <header className="header">
+                        <div className="header-left">
+                            <h1>Dashboard</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <div className="switches-container">
+                                <input
+                                    type="radio"
+                                    id="switchNormal"
+                                    name="switchPlan"
+                                    value="Monthly"
+                                    defaultChecked
+                                />
+                                <input
+                                    type="radio"
+                                    id="switchHighlight"
+                                    name="switchPlan"
+                                    value="Yearly"
+                                />
+                                <label htmlFor="switchNormal">Normal View</label>
+                                <label htmlFor="switchHighlight">Highlight View</label>
+                                <div className="switch-wrapper">
+                                    <div className="switch">
+                                        <div>Normal View</div>
+                                        <div>Highlight View</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="header-right">
-                    </div>
-                </header>
-                {/* -------------------------------- */}
-                {/*End Header */}
-                {/* -------------------------------- */}
+                        <div className="header-right">
+                        </div>
+                    </header>
+                    {/* -------------------------------- */}
+                    {/*End Header */}
+                    {/* -------------------------------- */}
 
-                {/* -------------------------------- */}
-                {/*Card */}
-                {/* -------------------------------- */}
-                <div className="card-container">
-                    <div className="card-left">
-                        <div className="card-title">
-                            <div>Total Salary</div>
-                            <div>Total Employees</div>
-                        </div>
-                        <div className="card-value">
-                            <div>15.000.000</div>
-                            <div>17</div>
-                        </div>
-                        <div className="card-description">
-                            <div>Total salary distribution for this month</div>
-                            <div>+1 employee of the month</div>
-                        </div>
+                    {/* -------------------------------- */}
+                    {/*Card */}
+                    {/* -------------------------------- */}
+                    <div className="card-container">
+                        <div className="card-left">
+                            <div className="card-title">
+                                <div>Total Salary</div>
+                                <div>Total Employees</div>
+                            </div>
+                            <div className="card-value">
+                                <div>15.000.000</div>
+                                <div>17</div>
+                            </div>
+                            <div className="card-description">
+                                <div>Total salary distribution for this month</div>
+                                <div>+1 employee of the month</div>
+                            </div>
 
-                    </div>
-                    <div className="card-right">
-                        <div className="card-title">
-                            <div>Inventory</div>
                         </div>
-                        <div className="card-value">
-                            <div>170</div>
-                        </div>
-                        <div className="card-description">
-                            <div>total inventory of 20 items</div>
-                        </div>
-                    </div>
-                </div>
-                {/* -------------------------------- */}
-                {/* End Card */}
-                {/* -------------------------------- */}
-
-
-                {/* -------------------------------- */}
-                {/* Main Table & card maybe */}
-                {/* -------------------------------- */}
-
-                <div className="main-container">
-                    <div className="main-left">
-                        <div className="title-csv">
-                            <div>shift now</div>
-                            <button className='btn-CSV'>Download CSV</button>
-                        </div>
-                        <div className="list-shift">
-                            <div className="table-container">
-                                <table>
-                                    <colgroup>
-                                        <col style={{ width: '25%' }} />
-                                        <col style={{ width: '20%' }} />
-                                        <col style={{ width: '5%' }} />
-                                        <col style={{ width: '30%' }} />
-                                    </colgroup>
-                                    <thead>
-                                        <tr>
-                                            <th className="name-col">Name</th>
-                                            <th className="presence-col">Presence</th>
-                                            <th className="role-col">Role</th>
-                                            <th className="shift-col">Shift</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {shiftData.map((item, index) => (
-                                            <tr key={index}>
-                                                <td className="name-col">
-                                                    <div>{item.name}</div>
-                                                    <div className="phone-number">{item.phone}</div>
-                                                </td>
-                                                <td className={`presence-col ${item.presence.replace(' ', '-').toLowerCase()}`}>
-                                                    <div>{item.presence}</div>
-                                                    <div className="presence-time">{item.presenceTime}</div>
-                                                </td>
-                                                <td className="role-col"><span className="role-chip">{item.role}</span></td>
-                                                <td className="shift-col">
-                                                    <div>{item.shift}</div>
-                                                    <div className="shift-time">{item.shiftTime}</div>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
+                        <div className="card-right">
+                            <div className="card-title">
+                                <div>Inventory</div>
+                            </div>
+                            <div className="card-value">
+                                <div>170</div>
+                            </div>
+                            <div className="card-description">
+                                <div>total inventory of 20 items</div>
                             </div>
                         </div>
                     </div>
+                    {/* -------------------------------- */}
+                    {/* End Card */}
+                    {/* -------------------------------- */}
 
-                    <div className="main-right">
+
+                    {/* -------------------------------- */}
+                    {/* Main Table & card maybe */}
+                    {/* -------------------------------- */}
+
+                    <div className="main-container">
+                        <div className="main-left">
+                            <div className="title-csv">
+                                <div>shift now</div>
+                                <button className='btn-CSV'>Download CSV</button>
+                            </div>
+                            <div className="list-shift">
+                                <div className="table-container">
+                                    <table>
+                                        <colgroup>
+                                            <col style={{ width: '25%' }} />
+                                            <col style={{ width: '20%' }} />
+                                            <col style={{ width: '5%' }} />
+                                            <col style={{ width: '30%' }} />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th className="name-col">Name</th>
+                                                <th className="presence-col">Presence</th>
+                                                <th className="role-col">Role</th>
+                                                <th className="shift-col">Shift</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {shiftData.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td className="name-col">
+                                                        <div>{item.name}</div>
+                                                        <div className="phone-number">{item.phone}</div>
+                                                    </td>
+                                                    <td className={`presence-col ${item.presence.replace(' ', '-').toLowerCase()}`}>
+                                                        <div>{item.presence}</div>
+                                                        <div className="presence-time">{item.presenceTime}</div>
+                                                    </td>
+                                                    <td className="role-col"><span className="role-chip">{item.role}</span></td>
+                                                    <td className="shift-col">
+                                                        <div>{item.shift}</div>
+                                                        <div className="shift-time">{item.shiftTime}</div>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="main-right">
+                        </div>
                     </div>
+
+                    {/* -------------------------------- */}
+                    {/* Main Table & card maybe */}
+                    {/* -------------------------------- */}
+
                 </div>
-
-                {/* -------------------------------- */}
-                {/* Main Table & card maybe */}
-                {/* -------------------------------- */}
-
+                {/* Content */}
             </div>
-            {/* Content */}
-        </div>
+        </>
     );
 }
 
