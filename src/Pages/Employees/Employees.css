@@ -1,29 +1,26 @@
+
 .main {
     width: 100%;
 }
 
-
 .list-employees table {
     width: 100%;
     border-collapse: collapse;
-    /* border: 1px solid #27272A; */
     overflow: hidden;
 }
 
-
 .list-employees thead th,
 .list-employees tbody td {
-    border-bottom: 1px solid #27272A;
+    border-bottom: 1px solid var(--border-color);
     padding: 12px;
     text-align: left;
     vertical-align: middle;
 }
 
 .list-employees thead th {
-    color: #fff;
+    color: var(--text-color);
 }
-
 
 .action {
+    /* Gaya untuk elemen .action dapat ditambahkan di sini */
 }
-

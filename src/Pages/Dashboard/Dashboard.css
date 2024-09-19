@@ -166,7 +166,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 20px;
-    color: #999;
+    color: var(text-color-gray);
 }
 
 .card-value {
@@ -181,7 +181,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 20px;
-    color: #999;
+    color: var(--text-color-gray);
 }
 
 .card-right {
