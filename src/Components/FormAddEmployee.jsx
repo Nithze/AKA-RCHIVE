@@ -1,41 +1,82 @@
-
-import React, { useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+// import './FormAddEmployee.css';
+//
+// const FormAddEmployee = ({ isOpen, onClose }) => {
+//     const [isAnimating, setAnimating] = useState(false);
+//     const [isExiting, setExiting] = useState(false);
+//
+//     useEffect(() => {
+//         if (isOpen) {
+//             setAnimating(true);
+//             setExiting(false); // Reset saat dialog dibuka
+//         } else if (!isOpen && isAnimating) {
+//             setExiting(true); // Aktifkan animasi keluar
+//             const timer = setTimeout(() => {
+//                 setAnimating(false); // Sembunyikan dialog setelah animasi keluar
+//                 onClose(); // Panggil fungsi onClose setelah animasi selesai
+//             }, 300); // Waktu yang sama dengan durasi transisi
+//
+//             return () => clearTimeout(timer); // Bersihkan timer saat komponen unmount
+//         }
+//     }, [isOpen, isAnimating, onClose]);
+//
+//     if (!isOpen && !isAnimating) return null; // Tidak menampilkan dialog jika tidak terbuka dan tidak dalam animasi
+//
+//     return (
+//         <div className="dialog-overlay">
+//             <div className={`dialog ${isExiting ? 'dialog-exit' : isAnimating ? 'dialog-enter' : ''}`}>
+//                 <h2>Add Employee</h2>
+//                 <button onClick={onClose}>Close</button>
+//                 {/* Tambahkan form input di sini */}
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default FormAddEmployee;
+//
+import React, { useEffect, useState } from 'react';
 import './FormAddEmployee.css';
 
-const FormAddEmployee = ({ isOpen, onClose, onAddEmployee }) => {
-    const [employeeData, setEmployeeData] = useState({
-        name: '',
-        phone: '',
-        dateAdded: new Date().toLocaleDateString(),
-        role: '',
-        shift: '',
-        shiftTime: '',
-    });
+const FormAddEmployee = ({ isOpen, onClose }) => {
+    const [isAnimating, setAnimating] = useState(false);
+    const [isExiting, setExiting] = useState(false);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setEmployeeData({ ...employeeData, [name]: value });
+    useEffect(() => {
+        if (isOpen) {
+            setAnimating(true);
+            setExiting(false);
+        } else if (!isOpen && isAnimating) {
+            setExiting(true);
+            const timer = setTimeout(() => {
+                setAnimating(false);
+                setExiting(false); // Reset exiting state
+            }, 200);
+
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, isAnimating]);
+
+    const handleClose = () => {
+        if (isAnimating && !isExiting) {
+            setExiting(true);
+            setTimeout(() => {
+                setAnimating(false);
+                onClose();
+            }, 300);
+        } else {
+            onClose();
+        }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onAddEmployee(employeeData);
-        setEmployeeData({ name: '', phone: '', dateAdded: new Date().toLocaleDateString(), role: '', shift: '', shiftTime: '' });
-    };
+    if (!isOpen && !isAnimating) return null;
 
     return (
-        <div className={`floating-form-container ${isOpen ? 'open' : ''}`}>
-            <div className="floating-form">
-                <button className="close-button" onClick={onClose}>×</button>
+        <div className="dialog-overlay">
+            <div className={`dialog ${isExiting ? 'dialog-exit' : isAnimating ? 'dialog-enter' : ''}`}>
                 <h2>Add Employee</h2>
-                <form onSubmit={handleSubmit}>
-                    <input type="text" name="name" placeholder="Name" value={employeeData.name} onChange={handleChange} required />
-                    <input type="text" name="phone" placeholder="Phone" value={employeeData.phone} onChange={handleChange} required />
-                    <input type="text" name="role" placeholder="Role" value={employeeData.role} onChange={handleChange} required />
-                    <input type="text" name="shift" placeholder="Shift" value={employeeData.shift} onChange={handleChange} required />
-                    <input type="text" name="shiftTime" placeholder="Shift Time" value={employeeData.shiftTime} onChange={handleChange} required />
-                    <button type="submit">Add Employee</button>
-                </form>
+                <button onClick={handleClose}>Close</button>
+                {/* Tambahkan form input di sini */}
             </div>
         </div>
     );
