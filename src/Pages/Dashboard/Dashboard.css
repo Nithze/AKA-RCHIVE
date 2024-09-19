@@ -1,5 +1,5 @@
 .header {
-    animation: slideInFromLeft 0.7s cubic-bezier(0, .54, .58, 1);
+    animation: slideInFromTop 0.7s cubic-bezier(0, .54, .58, 1);
 }
 .table-container {
     animation: opacity 1s ;
@@ -10,6 +10,17 @@
 
 .card-right {
     animation: slideInFromRight 1s cubic-bezier(0, .54, .58, 1);
+}
+@keyframes slideInFromTop {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 @keyframes opacity {
@@ -55,7 +66,7 @@
     display: flex;
     padding: 0;
     position: relative;
-    background: #28282A;
+    background: #27272A;
     line-height: 2rem;
     border-radius: 8px;
     /* margin-left: auto; */
@@ -92,7 +103,7 @@
 .switch {
     border-radius: 8px;
     height: 100%;
-    background: #141414;
+    background: #09090b;
 }
 
 .switch div {
@@ -130,19 +141,24 @@
     width: 100%;
     height: 200px;
     gap: 25px;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
 }
 
 .card-left {
     width: 60%;
     display: flex;
     flex-direction: column;
-    border: 2px solid #28282a;
+    border: 1px solid #27272A;
     border-radius: 8px;
     padding: 25px;
-    background: linear-gradient(90deg, rgba(40, 40, 42, 1) 0%, rgba(20, 20, 20, 1) 100%);
+    /* background: linear-gradient(90deg, rgba(40, 40, 42, 1) 0%, rgba(20, 20, 20, 1) 100%); */
+    background: #09090b;
     gap: 15px;
     justify-content: center;
+    transition: ease 0.4s;
+}
+.card-left:hover {
+    background: #27272A;
 }
 
 .card-title {
@@ -172,12 +188,16 @@
     width: 40%;
     display: flex;
     flex-direction: column;
-    background-color: #141414;
+    background-color: #09090b;
     border-radius: 8px;
-    border: 2px solid #28282a;
+    border: 1px solid #27272A;
     padding: 25px;
     gap: 15px;
     justify-content: center;
+    transition: ease 0.4s;
+}
+.card-right:hover {
+    background: #27272A;
 }
 
 .main-container {
@@ -197,6 +217,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     /* padding: 25px; */
     gap: 15px;
     font-size: 20px;
@@ -204,8 +225,8 @@
 }
 
 .btn-CSV {
-    background-color: #141414;
-    border: 2px solid #28282a;
+    background-color: #09090B;
+    border: 1px solid #27272A;
     color: #fff;
     padding: 10px;
     font-size: 16px;
@@ -215,30 +236,24 @@
 
 
 
-
 .list-shift table {
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #28282a;
-    border-radius: 8px;
+    /* border: 1px solid #27272A; */
     overflow: hidden;
 }
 
 .table-container {
-    max-height: 690px;
-    /* overflow-y: auto; */
-    border: 1px solid #28282a;
+    /* max-height: 690px; */
+    /* box-sizing: border-box; */
     border-radius: 8px;
-}
-
-.list-shift table {
-    width: 100%;
-    border-collapse: collapse;
+    border: 1px solid #27272A;
+    /* overflow-y: auto; */
 }
 
 .list-shift thead th,
 .list-shift tbody td {
-    border: 1px solid #28282a;
+    border-bottom: 1px solid #27272A;
     padding: 12px;
     text-align: left;
     vertical-align: middle;
@@ -248,25 +263,6 @@
     color: #fff;
 }
 
-.list-shift tbody tr:last-child td {
-    border-bottom: 1px solid #28282a;
-}
-
-.list-shift thead tr:first-child th:first-child {
-    border-top-left-radius: 8px;
-}
-
-.list-shift thead tr:first-child th:last-child {
-    border-top-right-radius: 8px;
-}
-
-.list-shift tbody tr:last-child td:first-child {
-    border-bottom-left-radius: 8px;
-}
-
-.list-shift tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 8px;
-}
 
 .role-chip {
     display: inline-block;
@@ -323,8 +319,6 @@
 .presence-col.no-presence {
     color: #FF0000;
 }
-
-
 
 
 .main-right {
