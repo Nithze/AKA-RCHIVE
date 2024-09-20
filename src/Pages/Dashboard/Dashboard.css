@@ -1,6 +1,3 @@
-/* .header { */
-/*     animation: slideInFromTop 0.7s cubic-bezier(0, .54, .58, 1); */
-/* } */
 .table-container {
     animation: opacity 1s ;
 }

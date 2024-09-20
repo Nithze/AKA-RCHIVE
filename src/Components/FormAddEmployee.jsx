@@ -1,45 +1,38 @@
 import './FormAddEmployee.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
 const FormAddEmployee = ({ isOpen, onClose }) => {
-    const [isAnimating, setAnimating] = useState(false);
-    const [isExiting, setExiting] = useState(false);
+    const overlayRef = useRef(null);
+    const dialogRef = useRef(null);
 
     useEffect(() => {
         if (isOpen) {
-            setAnimating(true);
-            setExiting(false);
-        } else if (!isOpen && isAnimating) {
-            setExiting(true);
-            const timer = setTimeout(() => {
-                setAnimating(false);
-                setExiting(false); // Reset exiting state
-            }, 200);
-
-            return () => clearTimeout(timer);
+            gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: "power2.inOut" });
+            gsap.to(dialogRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
+        } else {
+            gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, ease: "power2.inOut" });
+            gsap.to(dialogRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "back.in(1.7)" });
         }
-    }, [isOpen, isAnimating]);
+    }, [isOpen]);
+
+    if (!isOpen) return null;
 
     const handleClose = () => {
-        if (isAnimating && !isExiting) {
-            setExiting(true);
-            setTimeout(() => {
-                setAnimating(false);
-                onClose();
-            }, 200);
-        } else {
-            onClose();
-        }
+        gsap.to(dialogRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "back.in(1.7)" });
+        gsap.to(overlayRef.current, {
+            opacity: 0,
+            duration: 0.3,
+            ease: "power2.inOut",
+            onComplete: onClose
+        });
     };
 
-    if (!isOpen && !isAnimating) return null;
-
     return (
-        <div className="dialog-overlay">
-            <div className={`dialog ${isExiting ? 'dialog-exit' : isAnimating ? 'dialog-enter' : ''}`}>
+        <div className="dialog-overlay" ref={overlayRef} style={{ opacity: 0 }}>
+            <div className="dialog" ref={dialogRef} style={{ transform: "scale(0)", opacity: 0 }}>
                 <h2>Add Employee</h2>
                 <button onClick={handleClose}>Close</button>
-                {/* Tambahkan form input di sini */}
             </div>
         </div>
     );
