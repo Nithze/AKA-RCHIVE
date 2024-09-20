@@ -1,5 +1,7 @@
 import './Dashboard.css';
-import React from 'react';
+// import React from 'react';
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
 import Sidebar from '../../Components/Sidebar.jsx';
 
 
@@ -27,6 +29,25 @@ const shiftData = [
 ];
 
 export const Dashboard = () => {
+   const cardLeftRef = useRef(null);
+    const cardRightRef = useRef(null);
+
+    useEffect(() => {
+        gsap.to(cardLeftRef.current, {
+            x: '0%',  
+            duration: 0.8,  
+            opacity: 1,   
+            ease: "cubic-bezier(0.4, 0, 0.2, 1)"  
+        });
+
+        gsap.to(cardRightRef.current, {
+            x: '0%',  
+            duration: 0.8,  
+            opacity: 1,   
+            ease: "cubic-bezier(0.4, 0, 0.2, 1)"  
+        });
+    }, []);
+
     return (
         <>
             <div className="container">
@@ -75,7 +96,7 @@ export const Dashboard = () => {
                     {/*Card */}
                     {/* -------------------------------- */}
                     <div className="card-container">
-                        <div className="card-left">
+                        <div className="card-left" ref={cardLeftRef}>
                             <div className="card-title">
                                 <div>Total Salary</div>
                                 <div>Total Employees</div>
@@ -90,7 +111,7 @@ export const Dashboard = () => {
                             </div>
 
                         </div>
-                        <div className="card-right">
+                        <div className="card-right" ref={cardRightRef}>
                             <div className="card-title">
                                 <div>Inventory</div>
                             </div>

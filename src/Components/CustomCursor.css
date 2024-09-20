@@ -1,46 +1,12 @@
-/* src/components/CustomCursor.css */
 .cursor {
   width: 20px;
   height: 20px;
-  border: 1px solid white;
+  border: 1px solid white; 
   border-radius: 50%;
   position: absolute;
-  transition-duration: 200ms;
-  transition-timing-function: ease-out;
-  animation: cursorAnim 0.5s infinite alternate;
   pointer-events: none;
-  z-index: 9999; /* Memastikan custom cursor berada di atas elemen lainnya */
-}
-
-.cursor::after {
-  content: "";
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  border: 8px solid gray;
-  border-radius: 50%;
-  opacity: 0;
-  top: -8px;
-  left: -8px;
-  animation: cursorAnim2 0.5s infinite alternate;
-}
-
-@keyframes cursorAnim {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.7);
-  }
-}
-
-@keyframes cursorAnim2 {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0.4);
-  }
+  z-index: 9999;
+  transition: border-color 0.2s ease-out;
 }
 
 @keyframes cursorAnim3 {
@@ -52,12 +18,8 @@
   }
   100% {
     transform: scale(1);
-    opacity: 0;
+    opacity: 0; 
   }
 }
 
-.expand {
-  animation: cursorAnim3 0.5s forwards;
-  border: 4px solid red;
-}
 

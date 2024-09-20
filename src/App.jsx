@@ -10,7 +10,7 @@ import CustomCursor from './Components/CustomCursor.jsx'
 function App() {
     return (
         <Router>
-            <CustomCursor />  {/* Tambahkan di sini */}
+            <CustomCursor />  
             <Routes>
                 <Route path="/" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />

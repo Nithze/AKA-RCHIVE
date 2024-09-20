@@ -1,26 +1,38 @@
-
 import React, { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
 import './CustomCursor.css';
 
 const CustomCursor = () => {
-  const cursorRef = useRef(null);  // Ref untuk elemen kursor
+  const cursorRef = useRef(null);
   const [expand, setExpand] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
       const cursor = cursorRef.current;
       if (cursor) {
-        // Menggunakan requestAnimationFrame untuk menggerakkan kursor
-        requestAnimationFrame(() => {
-          cursor.style.top = `${e.pageY - 10}px`;
-          cursor.style.left = `${e.pageX - 10}px`;
+        gsap.to(cursor, {
+          duration: 0.1,
+          x: e.pageX - 10,
+          y: e.pageY - 10,
         });
       }
     };
 
     const handleClick = () => {
       setExpand(true);
-      setTimeout(() => setExpand(false), 500);
+      gsap.to(cursorRef.current, {
+        duration: 0.2,
+        scale: 3,
+        borderColor: 'red',
+        onComplete: () => {
+          setExpand(false);
+          gsap.to(cursorRef.current, {
+            duration: 0.2,
+            scale: 1,
+            borderColor: 'white',
+          });
+        },
+      });
     };
 
     document.addEventListener('mousemove', handleMouseMove);
@@ -33,12 +45,10 @@ const CustomCursor = () => {
   }, []);
 
   return (
-    <>
-      <div
-        ref={cursorRef}
-        className={`cursor ${expand ? 'expand' : ''}`}
-      ></div>
-    </>
+    <div
+      ref={cursorRef}
+      className={`cursor`}
+    ></div>
   );
 };
 
