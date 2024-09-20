@@ -6,18 +6,21 @@ import Dashboard from './Pages/Dashboard/Dashboard.jsx';
 import Employees from './Pages/Employees/Employees.jsx';
 import CustomCursor from './Components/CustomCursor.jsx';
 import BlankPage from './Components/BlankPage.jsx';
+import { ThemeProvider } from './Services/ThemeContext.jsx';
 
 function App() {
     return (
-        <Router>
-            <CustomCursor />
-            <BlankPage />
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/employees" element={<Employees />} />
-            </Routes>
-        </Router>
+        <ThemeProvider>
+            <Router>
+                <CustomCursor />
+                <BlankPage />
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/employees" element={<Employees />} />
+                </Routes>
+            </Router>
+        </ThemeProvider>
     );
 }
 

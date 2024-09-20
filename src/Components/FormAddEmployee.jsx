@@ -30,7 +30,7 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
 
     return (
         <div className="dialog-overlay" onClick={handleClose} ref={overlayRef} style={{ opacity: 0 }}>
-            <div className="dialog" ref={dialogRef} style={{ transform: "scale(0)", opacity: 0 }}>
+            <div className="dialog" ref={dialogRef} style={{ transform: "scale(0)", opacity: 0 }}  onClick={(e) => e.stopPropagation()}>
                 <div className="add-employee">
                     <h2>Add Employee</h2>
                     <p>Input yang bertanda <span className='warning-text'>*</span> wajib di isi</p>
