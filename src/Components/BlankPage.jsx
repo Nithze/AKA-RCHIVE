@@ -9,7 +9,7 @@ const BlankPage = () => {
             setIsVisible(window.innerWidth < 1024);
         };
 
-        handleResize(); 
+        handleResize();
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -18,7 +18,11 @@ const BlankPage = () => {
     }, []);
 
     return (
-        <div className={`blank-page ${isVisible ? 'active' : ''}`}></div>
+        <div className={`blank-page ${isVisible ? 'active' : ''}`}>
+            <i className='bx bx-cog icon blank-gear' style={{ color: "#ff0000" }}></i>
+
+             This view is optimized for larger screens. Please try on a desktop!
+        </div>
     );
 };
 
