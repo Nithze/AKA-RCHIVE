@@ -47,7 +47,7 @@ body.dark-theme {
 
 body {
     margin: 0;
-    animation: fade-in 0.5s;
+    animation: fade-in 0.8s;
     padding: 0;
     color: var(--text-color);
     background-color: var(--primary-bg-color);
