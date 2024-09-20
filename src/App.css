@@ -28,6 +28,16 @@
         filter: blur(0);
     }
 }
+@keyframes fade-out {
+    from {
+        opacity: 1;
+        filter: blur(0);
+    }
+    to {
+        opacity: 0;
+        filter: blur(10px);
+    }
+}
 
 body {
     margin: 0;
