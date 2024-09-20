@@ -14,6 +14,9 @@
     --cursor-border-color: white;
     --cursor-inner-border-color: gray;
 }
+.warning-text {
+    color: var(--warning-color);
+}
 
 @keyframes fade-in {
     from {

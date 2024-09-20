@@ -1,4 +1,4 @@
-import './Employees.css';
+import './Employees.scss';
 import React, { useState } from 'react';
 // import React from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
