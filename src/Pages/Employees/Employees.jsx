@@ -2,7 +2,7 @@ import './Employees.scss';
 import React, { useState } from 'react';
 // import React from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
-import FormAddEmployee from '../../Components/FormAddEmployee';
+import FormEmployee from '../../Components/FormEmployee';
 
 const shiftData = [
     { name: 'Azhar', phone: '08123456789', dateAdded: 'Sep 17, 2024', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
@@ -35,7 +35,7 @@ export const Employees = () => {
     const handleCloseDialog = () => setDialogOpen(false);
     return (
         <>
-            <FormAddEmployee isOpen={isDialogOpen} onClose={handleCloseDialog} />
+            <FormEmployee isOpen={isDialogOpen} onClose={handleCloseDialog} />
             <div className="container">
                 <Sidebar className="sidebar" />
                 {/* Content */}

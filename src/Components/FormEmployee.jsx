@@ -1,4 +1,4 @@
-import './FormAddEmployee.scss';
+import './FormEmployee.scss';
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
