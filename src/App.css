@@ -1,7 +1,3 @@
-body.dark-theme {
-  filter: invert(1) hue-rotate(180deg) !important; 
-}
-
 :root {
     --primary-bg-color: #09090B;
     --secondary-bg-color: #28282A;
@@ -18,6 +14,11 @@ body.dark-theme {
     --cursor-border-color: white;
     --cursor-inner-border-color: gray;
 }
+
+body.dark-theme {
+  filter: invert(1) hue-rotate(180deg) !important; 
+}
+
 .warning-text {
     color: var(--warning-color);
 }
