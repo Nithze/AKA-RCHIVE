@@ -82,8 +82,8 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
                     <p>NIK dan Nomor Telepon dapat digunakan untuk login</p>
 
                     <div className="button-group">
-                        <button onClick={handleClose}>Batal</button>
-                        <button>Simpan</button>
+                        <button onClick={handleClose} className='warning-btn'>Batal</button>
+                        <button className='btn'>Simpan</button>
                     </div>
                 </div>
             </div>
