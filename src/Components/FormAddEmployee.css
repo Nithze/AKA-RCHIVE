@@ -14,7 +14,9 @@
 }
 
 .dialog {
-    background-color: #272727;
+    /* background-color: #272727; */
+    background-color: rgba(7, 7, 7, 0.5);
+    border: 1px solid var(--border-color);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
