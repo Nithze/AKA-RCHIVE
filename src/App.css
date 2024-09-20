@@ -15,8 +15,20 @@
     --cursor-inner-border-color: gray;
 }
 
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
 body {
     margin: 0;
+    animation: fade-in 0.5s;
     padding: 0;
     color: var(--text-color);
     background-color: var(--primary-bg-color);
@@ -52,7 +64,8 @@ body {
     overflow-y: auto;
 }
 
-.btn, .warning-btn {
+.btn,
+.warning-btn {
     width: fit-content;
     padding: var(--btn-padding);
     font-size: var(--btn-font-size);
@@ -87,5 +100,3 @@ body {
     padding-right: 10px;
     align-self: center;
 }
-
-
