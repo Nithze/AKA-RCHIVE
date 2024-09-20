@@ -70,6 +70,13 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
                         <label>Tanggal Mulai Bekerja<span className='warning-text'>*</span></label>
                         <input type="date" />
                     </div>
+                    <div className="form-group">
+                        <label>Shift<span className='warning-text'>*</span></label>
+                        <select>
+                            <option value="morning">Morning</option>
+                            <option value="Night">Night</option>
+                        </select>
+                    </div>
 
                     <div className="form-group">
                         <label>Nomor Telepon<span className='warning-text'>*</span></label>
