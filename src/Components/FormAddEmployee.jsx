@@ -9,17 +9,17 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
     useEffect(() => {
         if (isOpen) {
             gsap.to(overlayRef.current, { opacity: 1, duration: 0.3, ease: "power2.inOut" });
-            gsap.to(dialogRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
+            gsap.to(dialogRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: "power2.out" });
         } else {
             gsap.to(overlayRef.current, { opacity: 0, duration: 0.3, ease: "power2.inOut" });
-            gsap.to(dialogRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "back.in(1.7)" });
+            gsap.to(dialogRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
         }
     }, [isOpen]);
 
     if (!isOpen) return null;
 
     const handleClose = () => {
-        gsap.to(dialogRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "back.in(1.7)" });
+        gsap.to(dialogRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: "power2.in" });
         gsap.to(overlayRef.current, {
             opacity: 0,
             duration: 0.3,
