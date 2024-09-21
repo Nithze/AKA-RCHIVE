@@ -29,7 +29,7 @@ const shiftData = [
 ];
 
 export const Employees = () => {
-    const [isDialogOpen, setDialogOpen] = useState(false); // State untuk dialog
+    const [isDialogOpen, setDialogOpen] = useState(false); 
 
     const handleOpenDialog = () => setDialogOpen(true);
     const handleCloseDialog = () => setDialogOpen(false);
