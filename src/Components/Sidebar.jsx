@@ -1,9 +1,9 @@
 import React from 'react';
-import { useTheme } from '../Services/ThemeContext.jsx'; // Impor hook context
+import { useTheme } from '../Services/ThemeContext.jsx'; 
 import './Sidebar.scss';
 
 const Sidebar = () => {
-    const { darkMode, setDarkMode } = useTheme(); // Ambil tema dari context
+    const { darkMode, setDarkMode } = useTheme(); // Ambil tema
 
     const toggleTheme = () => {
         setDarkMode(prev => !prev);

@@ -15,7 +15,6 @@
     --cursor-inner-border-color: gray;
 }
 
-/* hehe */
 body.dark-theme {
   filter: invert(1) hue-rotate(180deg) !important; 
 }
