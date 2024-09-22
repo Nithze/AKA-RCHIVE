@@ -1,90 +1,3 @@
-// import React, { useState } from 'react';
-// import './Sidebar.scss'; 
-//
-// const Sidebar = () => {
-//
-//   return (
-//     <nav className={"sidebar" }>
-//       <header>
-//         <div className="image-text">
-//           <div className="text logo-text">
-//             <span className="name">Azhar</span>
-//             <span className="profession">azhar@gmail.com</span>
-//           </div>
-//         </div>
-//
-//       </header>
-//
-//       <div className="menu-bar">
-//         <div className="menu">
-//
-//           <ul className="menu-links">
-//             <li className="nav-link">
-//               <a href="#">
-//                 <i className='bx bx-home-alt icon'></i>
-//                 <span className="text nav-text">Dashboard</span>
-//               </a>
-//             </li>
-//
-//             <li className="nav-link">
-//               <a href="#">
-//                 <i className='bx bx-bar-chart-alt-2 icon'></i>
-//                 <span className="text nav-text">Employees</span>
-//               </a>
-//             </li>
-//
-//             <li className="nav-link">
-//               <a href="#">
-//                 <i className='bx bx-bell icon'></i>
-//                 <span className="text nav-text">Notifications</span>
-//               </a>
-//             </li>
-//
-//             <li className="nav-link">
-//               <a href="#">
-//                 <i className='bx bx-pie-chart-alt icon'></i>
-//                 <span className="text nav-text">Analytics</span>
-//               </a>
-//             </li>
-//
-//             <li className="nav-link">
-//               <a href="#">
-//                 <i className='bx bx-heart icon'></i>
-//                 <span className="text nav-text">Likes</span>
-//               </a>
-//             </li>
-//
-//             <li className="nav-link">
-//               <a href="#">
-//                 <i className='bx bx-wallet icon'></i>
-//                 <span className="text nav-text">Wallets</span>
-//               </a>
-//             </li>
-//           </ul>
-//         </div>
-//
-//         <div className="bottom-content">
-//           <li>
-//             <a href="#">
-//               <i className='bx bx-log-out icon'></i>
-//               <span className="text nav-text">Logout</span>
-//             </a>
-//           </li>
-//           <li>
-//             <a href="#">
-//               <i className='bx bx-sun icon'></i>
-//               <span className="theme-toogle">Logout</span>
-//             </a>
-//           </li>
-//
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// };
-//
-// export default Sidebar;
-
 import React from 'react';
 import { useTheme } from '../Services/ThemeContext.jsx'; // Impor hook context
 import './Sidebar.scss';
@@ -111,7 +24,7 @@ const Sidebar = () => {
                 <div className="menu">
                     <ul className="menu-links">
                         <li className="nav-link">
-                            <a href="#">
+                            <a href="/dashboard">
                                 <i className='bx bx-home-alt icon'></i>
                                 <span className="text nav-text">Dashboard</span>
                             </a>
@@ -119,38 +32,56 @@ const Sidebar = () => {
 
                         <li className="nav-link">
                             <a href="#">
-                                <i className='bx bx-bar-chart-alt-2 icon'></i>
+                                <i className='bx bx-check-shield icon'></i>
+                                <span className="text nav-text">Role & Salary</span>
+                            </a>
+                        </li>
+
+                        <li className="nav-link">
+                            <a href="#">
+                                <i className='bx bx-time icon'></i>
+                                <span className="text nav-text">Shift</span>
+                            </a>
+                        </li>
+
+                        <li className="nav-link">
+                            <a href="#">
+                                <i className='bx bx-user icon'></i>
                                 <span className="text nav-text">Employees</span>
                             </a>
                         </li>
 
                         <li className="nav-link">
                             <a href="#">
-                                <i className='bx bx-bell icon'></i>
-                                <span className="text nav-text">Notifications</span>
+                                <i className='bx bx-calendar-check icon'></i>
+                                <span className="text nav-text">Attendance</span>
+                            </a>
+                        </li>
+
+
+
+                        <li className="nav-link">
+                            <a href="#">
+                                <i className='bx bx-money icon'></i>
+                                <span className="text nav-text">Salary Distribution</span>
                             </a>
                         </li>
 
                         <li className="nav-link">
                             <a href="#">
-                                <i className='bx bx-pie-chart-alt icon'></i>
-                                <span className="text nav-text">Analytics</span>
+                                <i className='bx bxs-file-import icon'></i>
+                                <span className="text nav-text">Suplier</span>
                             </a>
                         </li>
 
                         <li className="nav-link">
                             <a href="#">
-                                <i className='bx bx-heart icon'></i>
-                                <span className="text nav-text">Likes</span>
+                                <i className='bx bx-package icon'></i>
+                                <span className="text nav-text">Inventory</span>
                             </a>
                         </li>
 
-                        <li className="nav-link">
-                            <a href="#">
-                                <i className='bx bx-wallet icon'></i>
-                                <span className="text nav-text">Wallets</span>
-                            </a>
-                        </li>
+
                     </ul>
 
                 </div>
