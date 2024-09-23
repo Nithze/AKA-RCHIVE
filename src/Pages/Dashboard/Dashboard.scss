@@ -11,14 +11,12 @@
   /* margin-right: auto; */
 }
 
-/* input (radio) for toggling. hidden - use labels for clicking on */
 .switches-container input {
   visibility: hidden;
   position: absolute;
   top: 0;
 }
 
-/* labels for the input (radio) boxes - something to click on */
 .switches-container label {
   width: 50%;
   padding: 0;
