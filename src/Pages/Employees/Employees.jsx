@@ -66,18 +66,28 @@ export const Employees = () => {
                     <div className="main-container">
                         <div className="main">
                             <div className="toolbar">
-                                <div className="search-bar">
-                                    <input type="text" placeholder='Search Here ...'/>
+                                <div className="left">
+                                    <div className="search-bar">
+                                        <input type="text" placeholder='Search Here ...' />
+                                    </div>
+                                    <div className="filter">
+                                        <select>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <select>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div className="filter">
-                                    <select>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
-                                    <select>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                    </select>
+
+
+                                <div className="right">
+                                    <div className="alert">
+                                        <i className='bx bx-error'></i>
+                                        <a href='/dashboard'>salary distribution for the previous period has not been distributed. towards salary distribution</a>
+                                    </div>
                                 </div>
                             </div>
                             <div className="list-employees">
