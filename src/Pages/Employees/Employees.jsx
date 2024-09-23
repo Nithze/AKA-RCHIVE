@@ -29,7 +29,7 @@ const shiftData = [
 ];
 
 export const Employees = () => {
-    const [isDialogOpen, setDialogOpen] = useState(false); 
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
     const handleOpenDialog = () => setDialogOpen(true);
     const handleCloseDialog = () => setDialogOpen(false);
@@ -65,6 +65,21 @@ export const Employees = () => {
 
                     <div className="main-container">
                         <div className="main">
+                            <div className="toolbar">
+                                <div className="search-bar">
+                                    <input type="text" placeholder='Search Here ...'/>
+                                </div>
+                                <div className="filter">
+                                    <select>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <select>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div className="list-employees">
                                 <div className="table-container">
                                     <table>
