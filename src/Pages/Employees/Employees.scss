@@ -6,6 +6,8 @@
   width: 100%;
   border-collapse: collapse;
   overflow: hidden;
+  scrollbar-width: none;
+
 }
 
 .list-employees thead th,
@@ -29,16 +31,18 @@
   margin-bottom: 25px;
   justify-content: space-between;
 
-  .left{
+  .left {
     display: flex;
     width: 50%;
     gap: 25px;
   }
-  .right{
+
+  .right {
     display: flex;
     width: 50%;
     gap: 25px;
   }
+
   .search-bar {
     display: flex;
     width: 60%;
@@ -49,7 +53,8 @@
     display: flex;
     gap: 25px;
   }
-  .alert{
+
+  .alert {
     display: flex;
     text-align: right;
     background: var(--primary-bg-color);
@@ -58,9 +63,11 @@
     border-radius: 4px;
     margin-left: auto;
   }
+
   i {
     color: var(--warning-color);
   }
+
   a {
     text-decoration: none;
     color: var(--text-color);

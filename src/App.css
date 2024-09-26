@@ -16,7 +16,7 @@
 }
 
 body.dark-theme {
-  filter: invert(1) hue-rotate(180deg) !important; 
+    filter: invert(1) hue-rotate(180deg) !important;
 }
 
 .warning-text {
@@ -28,16 +28,19 @@ body.dark-theme {
         opacity: 0;
         filter: blur(10px);
     }
+
     to {
         opacity: 1;
         filter: blur(0);
     }
 }
+
 @keyframes fade-out {
     from {
         opacity: 1;
         filter: blur(0);
     }
+
     to {
         opacity: 0;
         filter: blur(10px);
@@ -45,6 +48,7 @@ body.dark-theme {
 }
 
 body {
+    overflow: hidden;
     margin: 0;
     animation: fade-in 0.5s;
     padding: 0;
@@ -80,6 +84,7 @@ body {
     background-color: var(--primary-bg-color);
     height: 100vh;
     overflow-y: auto;
+    scrollbar-width: none;
 }
 
 .btn,
