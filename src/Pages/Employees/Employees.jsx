@@ -126,6 +126,7 @@ export const Employees = () => {
                                                         <div className="shift-time">{item.shiftTime}</div>
                                                     </td>
                                                     <td className="action">
+                                                        <button className="btn" onClick={() => handleEdit(index)}>Detail</button>
                                                         <button className="btn" onClick={() => handleEdit(index)}>Edit</button>
                                                         <button className="warning-btn" onClick={() => handleDelete(index)}>Delete</button>
                                                     </td>
