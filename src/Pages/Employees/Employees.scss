@@ -10,9 +10,14 @@
 
 }
 
-.list-employees thead th,
+.list-employees thead th {
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
 .list-employees tbody td {
-  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
   padding: 10px;
   text-align: left;
   vertical-align: middle;
