@@ -28,7 +28,7 @@ const shiftData = [
 	},
 ];
 
-export const Employees = () => {
+export const Inventory = () => {
 	const [isDialogOpen, setDialogOpen] = useState(false);
 
 	const handleOpenDialog = () => setDialogOpen(true);
@@ -179,4 +179,4 @@ export const Employees = () => {
 	}
 };
 
-export default Employees;
+export default Inventory;
