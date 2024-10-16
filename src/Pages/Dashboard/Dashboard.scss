@@ -1,3 +1,19 @@
+.presence-col.absent-highlight {
+    color: orange;
+}
+
+.presence-col.alpha-highlight {
+    color: red;
+}
+
+.presence-col.present-highlight {
+    color: #02f242;
+}
+
+.presence-col.awaiting-highlight {
+    color: grey;
+}
+
 .switches-container {
   width: 16rem;
   position: relative;
@@ -199,9 +215,15 @@
 
 }
 
-.list-shift thead th,
+.list-shift thead th {
+
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
 .list-shift tbody td {
-  border-bottom: 1px solid #27272A;
+  border-top: 1px solid #27272A;
   padding: 10px;
   text-align: left;
   vertical-align: middle;

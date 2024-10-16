@@ -61,6 +61,10 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
                                 <label>Alamat Lengkap</label>
                                 <input type="text" />
                             </div>
+                            <div className="form-group">
+                                <label>No Rekening <span className='warning-text'>*</span></label>
+                                <input type="text" />
+                            </div>
                         </div>
 
 
@@ -93,7 +97,11 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
                             </div>
                             <div className="form-group">
                                 <label>Password<span className='warning-text'>*</span></label>
-                                <input type="password" />
+                                <input type="text" />
+                            </div>
+                            <div className="form-group">
+                                <label>Rekening Atas Nama<span className='warning-text'>*</span></label>
+                                <input type="text" />
                             </div>
                         </div>
 
