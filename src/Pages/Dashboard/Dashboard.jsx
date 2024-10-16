@@ -8,6 +8,7 @@ export const Dashboard = () => {
     const cardLeftRef = useRef(null);
     const cardRightRef = useRef(null);
     const [shiftData, setShiftData] = useState([]); // State untuk menyimpan data shift
+    const [cesData, setCesData] = useState({}); // State untuk menyimpan data CES
     const [isHighlight, setIsHighlight] = useState(false); // State untuk menentukan mode
 
     useEffect(() => {
@@ -26,7 +27,7 @@ export const Dashboard = () => {
             ease: "cubic-bezier(0.4, 0, 0.2, 1)"  
         });
 
-        // Panggilan API
+        // Panggilan API untuk data shift
         const fetchShiftData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/attendance/current-shift');
@@ -36,7 +37,18 @@ export const Dashboard = () => {
             }
         };
 
+        // Panggilan API untuk data CES
+        const fetchCesData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/employees/ces');
+                setCesData(response.data); // Simpan data CES ke dalam state
+            } catch (error) {
+                console.error("Error fetching CES data:", error);
+            }
+        };
+
         fetchShiftData();
+        fetchCesData();
     }, []);
 
     // Fungsi untuk mendapatkan kelas CSS berdasarkan status kehadiran
@@ -114,12 +126,12 @@ export const Dashboard = () => {
                                 <div>Total Employees</div>
                             </div>
                             <div className="card-value">
-                                <div>15.000.000</div>
-                                <div>17</div>
+                                <div>{cesData.totalSalaryDistribution?.toLocaleString('id-ID') || '0'}</div>
+                                <div>{cesData.totalEmployees || '0'}</div>
                             </div>
                             <div className="card-description">
                                 <div>not include deductions or bonuses</div>
-                                <div>+1 employee of the month</div>
+                                <div>+{cesData.employeeOfTheMonthCount || 0} employee of the month</div>
                             </div>
                         </div>
                     {/* end card CES */}
