@@ -106,10 +106,11 @@ export const Dashboard = () => {
                     </header>
 
                     {/* Card */}
+                    {/* card CES */}
                     <div className="card-container">
                         <div className="card-left" ref={cardLeftRef}>
                             <div className="card-title">
-                                <div>Total Salary</div>
+                                <div>Total salary distribution for this month</div>
                                 <div>Total Employees</div>
                             </div>
                             <div className="card-value">
@@ -117,10 +118,12 @@ export const Dashboard = () => {
                                 <div>17</div>
                             </div>
                             <div className="card-description">
-                                <div>Total salary distribution for this month</div>
+                                <div>not include deductions or bonuses</div>
                                 <div>+1 employee of the month</div>
                             </div>
                         </div>
+                    {/* end card CES */}
+
                         <div className="card-right" ref={cardRightRef}>
                             <div className="card-title">
                                 <div>Inventory</div>
@@ -172,7 +175,7 @@ export const Dashboard = () => {
                                                         <div className="presence-time">{item.attendance[0]?.checkInTime || 'N/A'}</div>
                                                     </td>
                                                     <td className={`late-col ${getPresenceClass(item.attendance[0]?.status)}`}>
-                                                        <div>{item.attendance[0]?.lateTime || '0'}</div>
+                                                        <div>{item.attendance[0]?.lateTime || '0 '}min</div>
                                                     </td>
                                                     <td className="role-col"><span className="role-chip">{item.roleName}</span></td>
                                                     <td className="shift-col">
