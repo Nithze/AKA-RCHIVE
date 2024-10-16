@@ -25,7 +25,7 @@ export const Inventory = () => {
 		const fetchItems = async () => {
 			try {
 				const response = await axios.get("http://localhost:5000/api/item/");
-				setItems(response.data);
+				setItems(response.data.items);
 			} catch (error) {
 				console.error("Error fetching items:", error);
 			}
