@@ -1,37 +1,17 @@
 import './Dashboard.scss';
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import Sidebar from '../../Components/Sidebar.jsx';
-
-
-const shiftData = [
-    { name: 'Azhar', phone: '08123456789', presence: 'Presence', presenceTime: '09:00 - 17:00', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', presence: 'Presence', presenceTime: '09:00 - 17:00', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', presence: 'Presence', presenceTime: '09:00 - 17:00', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', presence: 'Presence', presenceTime: '09:00 - 17:00', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Azhar', phone: '08123456789', presence: 'Presence', presenceTime: '09:00 - 17:00', role: 'Barista', shift: 'Morning Shift', shiftTime: '07:00 AM - 03:00 PM' },
-    { name: 'Ilham', phone: '08987654321', presence: 'No Presence', presenceTime: '', role: 'Waiter', shift: 'Afternoon Shift', shiftTime: '03:00 PM - 11:00 PM' },
-    { name: 'Ceyo', phone: '08765432109', presence: 'Presence', presenceTime: '12:00 - 20:00', role: 'Cook', shift: 'Evening Shift', shiftTime: '05:00 PM - 01:00 AM' },
-    { name: 'Edgar', phone: '08234567890', presence: 'No Presence', presenceTime: '', role: 'Cleaner', shift: 'Night Shift', shiftTime: '09:00 PM - 05:00 AM' },
-    { name: 'Ilham', phone: '08987654321', presence: 'No Presence', presenceTime: '', role: 'Waiter', shift: 'Afternoon Shift', shiftTime: '03:00 PM - 11:00 PM' },
-    { name: 'Ceyo', phone: '08765432109', presence: 'Presence', presenceTime: '12:00 - 20:00', role: 'Cook', shift: 'Evening Shift', shiftTime: '05:00 PM - 01:00 AM' },
-    { name: 'Edgar', phone: '08234567890', presence: 'No Presence', presenceTime: '', role: 'Cleaner', shift: 'Night Shift', shiftTime: '09:00 PM - 05:00 AM' },
-    { name: 'Ilham', phone: '08987654321', presence: 'No Presence', presenceTime: '', role: 'Waiter', shift: 'Afternoon Shift', shiftTime: '03:00 PM - 11:00 PM' },
-    { name: 'Ceyo', phone: '08765432109', presence: 'Presence', presenceTime: '12:00 - 20:00', role: 'Cook', shift: 'Evening Shift', shiftTime: '05:00 PM - 01:00 AM' },
-    { name: 'Edgar', phone: '08234567890', presence: 'No Presence', presenceTime: '', role: 'Cleaner', shift: 'Night Shift', shiftTime: '09:00 PM - 05:00 AM' },
-    { name: 'Ilham', phone: '08987654321', presence: 'No Presence', presenceTime: '', role: 'Waiter', shift: 'Afternoon Shift', shiftTime: '03:00 PM - 11:00 PM' },
-    { name: 'Ceyo', phone: '08765432109', presence: 'Presence', presenceTime: '12:00 - 20:00', role: 'Cook', shift: 'Evening Shift', shiftTime: '05:00 PM - 01:00 AM' },
-    { name: 'Edgar', phone: '08234567890', presence: 'No Presence', presenceTime: '', role: 'Cleaner', shift: 'Night Shift', shiftTime: '09:00 PM - 05:00 AM' },
-    { name: 'Ilham', phone: '08987654321', presence: 'No Presence', presenceTime: '', role: 'Waiter', shift: 'Afternoon Shift', shiftTime: '03:00 PM - 11:00 PM' },
-    { name: 'Ceyo', phone: '08765432109', presence: 'Presence', presenceTime: '12:00 - 20:00', role: 'Cook', shift: 'Evening Shift', shiftTime: '05:00 PM - 01:00 AM' },
-    { name: 'Edgar', phone: '08234567890', presence: 'No Presence', presenceTime: '', role: 'Cleaner', shift: 'Night Shift', shiftTime: '09:00 PM - 05:00 AM' },
-];
+import axios from 'axios';
 
 export const Dashboard = () => {
-   const cardLeftRef = useRef(null);
+    const cardLeftRef = useRef(null);
     const cardRightRef = useRef(null);
+    const [shiftData, setShiftData] = useState([]); // State untuk menyimpan data shift
+    const [isHighlight, setIsHighlight] = useState(false); // State untuk menentukan mode
 
     useEffect(() => {
+        // Animasi
         gsap.to(cardLeftRef.current, {
             x: '0%',  
             duration: 0.8,  
@@ -45,7 +25,44 @@ export const Dashboard = () => {
             opacity: 1,   
             ease: "cubic-bezier(0.4, 0, 0.2, 1)"  
         });
+
+        // Panggilan API
+        const fetchShiftData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/attendance/current-shift');
+                setShiftData(response.data); // Simpan data ke dalam state
+            } catch (error) {
+                console.error("Error fetching shift data:", error);
+            }
+        };
+
+        fetchShiftData();
     }, []);
+
+    // Fungsi untuk mendapatkan kelas CSS berdasarkan status kehadiran
+    const getPresenceClass = (status) => {
+        if (isHighlight) {
+            switch (status.toLowerCase()) {
+                case 'absent':
+                    return 'absent-highlight'; // Orange
+                case 'alpha':
+                    return 'alpha-highlight'; // Merah
+                case 'present':
+                    return 'present-highlight'; // Hijau
+                case 'awaiting':
+                    return 'awaiting-highlight'; // Grey
+                default:
+                    return '';
+            }
+        } else {
+            return ''; // Kembali ke warna normal
+        }
+    };
+
+    // Handler untuk radio button
+    const handleSwitchChange = (event) => {
+        setIsHighlight(event.target.value === 'Highlight');
+    };
 
     return (
         <>
@@ -53,9 +70,7 @@ export const Dashboard = () => {
                 <Sidebar className="sidebar" />
                 {/* Content */}
                 <div className="content">
-                    {/* -------------------------------- */}
                     {/* Header */}
-                    {/* -------------------------------- */}
                     <header className="header">
                         <div className="header-left">
                             <h1>Dashboard</h1>
@@ -65,14 +80,16 @@ export const Dashboard = () => {
                                     type="radio"
                                     id="switchNormal"
                                     name="switchPlan"
-                                    value="Monthly"
+                                    value="Normal"
                                     defaultChecked
+                                    onChange={handleSwitchChange}
                                 />
                                 <input
                                     type="radio"
                                     id="switchHighlight"
                                     name="switchPlan"
-                                    value="Yearly"
+                                    value="Highlight"
+                                    onChange={handleSwitchChange}
                                 />
                                 <label htmlFor="switchNormal">Normal View</label>
                                 <label htmlFor="switchHighlight">Highlight View</label>
@@ -87,13 +104,8 @@ export const Dashboard = () => {
                         <div className="header-right">
                         </div>
                     </header>
-                    {/* -------------------------------- */}
-                    {/*End Header */}
-                    {/* -------------------------------- */}
 
-                    {/* -------------------------------- */}
-                    {/*Card */}
-                    {/* -------------------------------- */}
+                    {/* Card */}
                     <div className="card-container">
                         <div className="card-left" ref={cardLeftRef}>
                             <div className="card-title">
@@ -108,7 +120,6 @@ export const Dashboard = () => {
                                 <div>Total salary distribution for this month</div>
                                 <div>+1 employee of the month</div>
                             </div>
-
                         </div>
                         <div className="card-right" ref={cardRightRef}>
                             <div className="card-title">
@@ -122,34 +133,29 @@ export const Dashboard = () => {
                             </div>
                         </div>
                     </div>
-                    {/* -------------------------------- */}
-                    {/* End Card */}
-                    {/* -------------------------------- */}
 
-
-                    {/* -------------------------------- */}
-                    {/* Main Table & card maybe */}
-                    {/* -------------------------------- */}
-
+                    {/* Main Table */}
                     <div className="main-container">
                         <div className="main-left">
                             <div className="title-csv">
-                                <div>shift now</div>
+                                <div>Shift Now</div>
                                 <button className='btn-CSV'>Download CSV</button>
                             </div>
                             <div className="list-shift">
                                 <div className="table-container">
                                     <table>
                                         <colgroup>
-                                            <col style={{ width: '25%' }} />
-                                            <col style={{ width: '20%' }} />
-                                            <col style={{ width: '5%' }} />
-                                            <col style={{ width: '30%' }} />
+                                            <col style={{ width: '35%' }} />
+                                            <col style={{ width: '15%' }} />
+                                            <col style={{ width: '15%' }} />
+                                            <col style={{ width: '10%' }} />
+                                            <col style={{ width: '10%' }} />
                                         </colgroup>
                                         <thead>
                                             <tr>
                                                 <th className="name-col">Name</th>
                                                 <th className="presence-col">Presence</th>
+                                                <th className="late-col">Late Time</th>
                                                 <th className="role-col">Role</th>
                                                 <th className="shift-col">Shift</th>
                                             </tr>
@@ -158,17 +164,20 @@ export const Dashboard = () => {
                                             {shiftData.map((item, index) => (
                                                 <tr key={index}>
                                                     <td className="name-col">
-                                                        <div>{item.name}</div>
-                                                        <div className="phone-number">{item.phone}</div>
+                                                        <div>{item.employeeName}</div>
+                                                        <div className="phone-number">{item.phoneNumber}</div>
                                                     </td>
-                                                    <td className={`presence-col ${item.presence.replace(' ', '-').toLowerCase()}`}>
-                                                        <div>{item.presence}</div>
-                                                        <div className="presence-time">{item.presenceTime}</div>
+                                                    <td className={`presence-col ${getPresenceClass(item.attendance[0]?.status)}`}>
+                                                        <div>{item.attendance[0]?.status || 'Unknown'}</div>
+                                                        <div className="presence-time">{item.attendance[0]?.checkInTime || 'N/A'}</div>
                                                     </td>
-                                                    <td className="role-col"><span className="role-chip">{item.role}</span></td>
+                                                    <td className={`late-col ${getPresenceClass(item.attendance[0]?.status)}`}>
+                                                        <div>{item.attendance[0]?.lateTime || '0'}</div>
+                                                    </td>
+                                                    <td className="role-col"><span className="role-chip">{item.roleName}</span></td>
                                                     <td className="shift-col">
-                                                        <div>{item.shift}</div>
-                                                        <div className="shift-time">{item.shiftTime}</div>
+                                                        <div>{item.shiftName}</div>
+                                                        <div className="shift-time">{item.shiftStart} - {item.shiftEnd}</div>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -182,12 +191,7 @@ export const Dashboard = () => {
                         </div>
                     </div>
 
-                    {/* -------------------------------- */}
-                    {/* Main Table & card maybe */}
-                    {/* -------------------------------- */}
-
                 </div>
-                {/* Content */}
             </div>
         </>
     );

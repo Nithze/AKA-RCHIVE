@@ -1,3 +1,19 @@
+.presence-col.absent-highlight {
+    color: orange;
+}
+
+.presence-col.alpha-highlight {
+    color: red;
+}
+
+.presence-col.present-highlight {
+    color: #02f242;
+}
+
+.presence-col.awaiting-highlight {
+    color: grey;
+}
+
 .switches-container {
   width: 16rem;
   position: relative;
