@@ -137,29 +137,42 @@ export const Inventory = () => {
 							<div className="list-employees">
 								<div className="table-container">
 									<table>
+										<colgroup>
+											<col style={{ width: "20%" }} />
+											<col style={{ width: "15%" }} />
+											<col style={{ width: "20%" }} />
+											<col style={{ width: "20%" }} />
+											<col style={{ width: "25%" }} />
+										</colgroup>
 										<thead>
 											<tr>
-												<th>Name</th>
-												<th>Stock</th>
-												<th>Supplier</th>
-												<th>Re-order</th>
-												<th>Action</th>
+												<th className="name">Item Name</th>
+												<th className="stock">Stock</th>
+												<th className="supplier">Supplier</th>
+												<th className="reorder">Re-order Status</th>
+												<th className="action">Action</th>
 											</tr>
 										</thead>
 										<tbody>
 											{items.map((item, index) => (
 												<tr key={item._id}>
-													<td>{item.item_name}</td>
-													<td>{item.stock}</td>
-													<td>{item.supplier}</td>
-													<td>
+													<td className="name">
+														<div>{item.item_name}</div>
+													</td>
+													<td className="stock">
+														<div>{item.stock}</div>
+													</td>
+													<td className="supplier">
+														<span className="role-chip">{item.supplier}</span>
+													</td>
+													<td className="reorder">
 														{item.reorder_level === 1
 															? "Re-order Immediately"
 															: item.reorder_level === 2
 															? "Caution"
 															: "Plentiful"}
 													</td>
-													<td>
+													<td className="action">
 														<button
 															className="btn"
 															onClick={() => handleOpenDialog(item)}
