@@ -39,7 +39,7 @@
 //
 // export default Login;
 //
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Gunakan axios untuk request ke backend
 import "./Login.css";
@@ -61,7 +61,7 @@ const Login = () => {
 				password,
 			});
 
-			const { token, user } = res.data;
+			const { token } = res.data;
 
 			// Simpan token JWT ke localStorage
 			localStorage.setItem("token", token);
@@ -69,7 +69,8 @@ const Login = () => {
 			// Redirect ke halaman dashboard setelah login sukses
 			navigate("/dashboard");
 		} catch (err) {
-			setError("Login failed. Please check your credentials."); // Menampilkan pesan error jika login gagal
+			setError("Login failed. Please check your credentials.");
+			console.log(err + "errornya"); // Menampilkan pesan error jika login gagal
 		}
 	};
 

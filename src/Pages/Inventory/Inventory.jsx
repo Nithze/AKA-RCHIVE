@@ -1,74 +1,122 @@
 import "./Inventory.scss";
-import { useState } from "react";
-// import React from 'react';
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../../Components/Sidebar.jsx";
-import FormEmployee from "../../Components/FormEmployee.jsx";
-
-const shiftData = [
-	{
-		name: "Keju",
-		stock: "100",
-		supplier: "Blue Band",
-		reorder: "3",
-		reorder_msg: "Plentiful",
-	},
-	{
-		name: "Ban Motor",
-		stock: "5",
-		supplier: "Danlop",
-		reorder: "1",
-		reorder_msg: "Re-order Immediately",
-	},
-	{
-		name: "Choclat",
-		stock: "50",
-		supplier: "Abadi",
-		reorder: "2",
-		reorder_msg: "Caution",
-	},
-];
+import FormItem from "../../Components/FormItem.jsx";
 
 export const Inventory = () => {
 	const [isDialogOpen, setDialogOpen] = useState(false);
+	const [items, setItems] = useState([]);
+	const [selectedItem, setSelectedItem] = useState(null); // State to store the selected item for editing
+	const [sortOrder, setSortOrder] = useState("asc");
 
-	const handleOpenDialog = () => setDialogOpen(true);
-	const handleCloseDialog = () => setDialogOpen(false);
+	const handleOpenDialog = (item) => {
+		setSelectedItem(item);
+		setDialogOpen(true);
+	};
+
+	const handleCloseDialog = () => {
+		setDialogOpen(false);
+		setSelectedItem(null); // Clear the selected item when closing
+	};
+
+	// Fetch items from the API
+	useEffect(() => {
+		const fetchItems = async () => {
+			try {
+				const response = await axios.get("http://localhost:5000/api/item/");
+				setItems(response.data);
+			} catch (error) {
+				console.error("Error fetching items:", error);
+			}
+		};
+
+		fetchItems();
+	}, []);
+
+	function handleDelete(index) {
+		const itemId = items[index]._id;
+		const confirmDelete = window.confirm(
+			`Are you sure you want to delete this item?`
+		);
+
+		if (confirmDelete) {
+			axios
+				.delete(`http://localhost:5000/api/item/${itemId}`)
+				.then((response) => {
+					console.log("Item deleted:", response.data);
+					const updatedItems = items.filter((item, idx) => idx !== index);
+					setItems(updatedItems);
+				})
+				.catch((error) => {
+					console.error("Error deleting item:", error);
+				});
+		}
+	}
+
+	// Function to handle sorting
+	const handleSortChange = (e) => {
+		const order = e.target.value;
+		setSortOrder(order);
+
+		const sortedItems = [...items].sort((a, b) => {
+			if (order === "dsc") {
+				return a.stock - b.stock;
+			} else if (order === "asc") {
+				return b.stock - a.stock;
+			}
+			return 0;
+		});
+
+		setItems(sortedItems);
+	};
+
+	const handleUpdateItem = async (updatedItem) => {
+		try {
+			// Send the updated item data to the server
+			await axios.put(
+				`http://localhost:5000/api/item/${updatedItem._id}`,
+				updatedItem
+			);
+
+			// Update the local state
+			const updatedItems = items.map((item) =>
+				item._id === updatedItem._id ? updatedItem : item
+			);
+			setItems(updatedItems);
+			handleCloseDialog();
+		} catch (error) {
+			console.error("Error updating item:", error);
+		}
+	};
+
 	return (
 		<>
-			<FormEmployee isOpen={isDialogOpen} onClose={handleCloseDialog} />
+			{/* Pass selectedItem to FormItem */}
+			<FormItem
+				isOpen={isDialogOpen}
+				onClose={handleCloseDialog}
+				item={selectedItem}
+				onSubmit={handleUpdateItem} // Handle the form submission
+			/>
 			<div className="container">
 				<Sidebar className="sidebar" />
-				{/* Content */}
 				<div className="content">
-					{/* -------------------------------- */}
-					{/* Header */}
-					{/* -------------------------------- */}
 					<header className="header">
 						<div className="header-left">
 							<h1>Manage Inventory</h1>
 							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit.
-								Eveniet.
+								Keep track of all the items in your inventory. Manage stock,
+								reorder levels, and suppliers.
 							</p>
 						</div>
 						<div className="header-right">
-							<button className="btn" onClick={() => handleEdit()}>
+							<button className="btn">
 								<i className="bx bx-download icon"></i>
 								Download CSV
 							</button>
-							<button className="btn" onClick={handleOpenDialog}>
-								<i className="bx bx-user-plus icon"></i>
-								Add Employee
-							</button>
 						</div>
 					</header>
-					{/* -------------------------------- */}
-					{/*End Header */}
-					{/* -------------------------------- */}
-
-					{/* -------------------------------- */}
-					{/* Main Table & card maybe */}
-					{/* -------------------------------- */}
 
 					<div className="main-container">
 						<div className="main">
@@ -78,65 +126,43 @@ export const Inventory = () => {
 										<input type="text" placeholder="Search Here ..." />
 									</div>
 									<div className="filter">
-										<select>
-											<option value="male">Male</option>
-											<option value="female">Female</option>
+										<select value={sortOrder} onChange={handleSortChange}>
+											<option value="asc">ASC</option>
+											<option value="dsc">DSC</option>
 										</select>
 									</div>
 								</div>
-
-								<div className="right"></div>
 							</div>
+
 							<div className="list-employees">
 								<div className="table-container">
 									<table>
-										<colgroup>
-											<col style={{ width: "10%" }} />
-											<col style={{ width: "10%" }} />
-											<col style={{ width: "10%" }} />
-											<col style={{ width: "10%" }} />
-											<col style={{ width: "15%" }} />
-										</colgroup>
 										<thead>
 											<tr>
-												<th className="name">Name</th>
-												<th className="date-add">Stock</th>
-												<th className="role">Supplier</th>
-												<th className="shift">Re-order</th>
-												<th className="action">Action</th>
+												<th>Name</th>
+												<th>Stock</th>
+												<th>Supplier</th>
+												<th>Re-order</th>
+												<th>Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											{shiftData.map((item, index) => (
-												<tr key={index}>
-													<td className="name">
-														<div>{item.name}</div>
+											{items.map((item, index) => (
+												<tr key={item._id}>
+													<td>{item.item_name}</td>
+													<td>{item.stock}</td>
+													<td>{item.supplier}</td>
+													<td>
+														{item.reorder_level === 1
+															? "Re-order Immediately"
+															: item.reorder_level === 2
+															? "Caution"
+															: "Plentiful"}
 													</td>
-													<td
-														className={`date-add ${item.stock
-															.replace(" ", "-")
-															.toLowerCase()}`}
-													>
-														<div>{item.presence}</div>
-														<div className="date-add">{item.stock}</div>
-													</td>
-													<td className="role">
-														<span className="role-chip">{item.supplier}</span>
-													</td>
-													<td className="shift">
-														<div>{item.reorder}</div>
-														<div className="shift-time">{item.reorder_msg}</div>
-													</td>
-													<td className="action">
+													<td>
 														<button
 															className="btn"
-															onClick={() => handleEdit(index)}
-														>
-															Detail
-														</button>
-														<button
-															className="btn"
-															onClick={() => handleEdit(index)}
+															onClick={() => handleOpenDialog(item)}
 														>
 															Edit
 														</button>
@@ -155,28 +181,10 @@ export const Inventory = () => {
 							</div>
 						</div>
 					</div>
-
-					{/* -------------------------------- */}
-					{/* Main Table & card maybe */}
-					{/* -------------------------------- */}
-					{/* Form Dialog */}
 				</div>
-				{/* Content */}
 			</div>
 		</>
 	);
-
-	// Handler function untuk edit
-	function handleEdit(index) {
-		console.log(`Edit employee at index ${index}`);
-		// Tambahkan logic untuk proses edit di sini
-	}
-
-	// Handler function untuk delete
-	function handleDelete(index) {
-		console.log(`Delete employee at index ${index}`);
-		// Tambahkan logic untuk proses delete di sini
-	}
 };
 
 export default Inventory;

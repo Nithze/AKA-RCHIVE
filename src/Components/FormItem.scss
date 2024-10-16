@@ -33,45 +33,56 @@
 			gap: 20px;
 		}
 
-		.form-left {
-			width: 50%;
-		}
-
-		.form-right {
-			width: 50%;
-		}
-
-		.form-group {
+		.form-control {
 			margin-bottom: 15px;
 
 			label {
 				display: block;
-				margin-bottom: 10px;
+				margin-bottom: 5px;
 				color: var(--text-color-gray);
 			}
 
 			input,
 			select {
 				width: 100%;
-				padding: 8px;
+				padding: 10px;
 				border: 1px solid var(--border-color);
 				border-radius: 4px;
 				background: var(--primary-bg-color);
 				color: var(--text-color);
+				font-size: 16px;
+				outline: none;
+				transition: border-color 0.3s ease;
+
+				&:focus {
+					border-color: var(--focus-color);
+				}
+			}
+
+			select {
+				appearance: none; /* Hide default dropdown arrow */
+				background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23ffffff' d='M2 0L0 2h4z'/%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				background-position: right 10px top 50%;
+				background-size: 12px 12px;
 			}
 		}
 
-		.button-group {
-			display: flex;
-			justify-content: space-between;
+		.submit-btn {
+			width: 100%;
+			padding: 10px 0;
+			background-color: var(--btn-primary-bg);
+			color: white;
+			border: none;
+			border-radius: 4px;
 			margin-top: 20px;
-			gap: 15px;
-		}
+			font-size: 16px;
+			cursor: pointer;
+			transition: background-color 0.3s ease;
 
-		.btn,
-		.warning-btn {
-			width: 50%;
-			margin: 0;
+			&:hover {
+				background-color: #28282a;
+			}
 		}
 	}
 }
