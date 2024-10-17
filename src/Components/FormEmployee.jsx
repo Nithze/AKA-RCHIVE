@@ -552,7 +552,7 @@ import { gsap } from 'gsap';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const FormEmployee = ({ isOpen, onClose, employee }) => {
+const FormEmployee = ({ isOpen, onClose, employee, onSuccess }) => {
     const [shifts, setShifts] = useState([]);
     const [roles, setRoles] = useState([]);
     const [formData, setFormData] = useState({
@@ -649,7 +649,7 @@ const FormEmployee = ({ isOpen, onClose, employee }) => {
                     fullName: '',
                     nik: '',
                     birthDate: '',
-                    gender: 'male',
+                    gender: '',
                     address: '',
                     bankAccountNumber: '',
                     role: '',
@@ -660,6 +660,9 @@ const FormEmployee = ({ isOpen, onClose, employee }) => {
                     accountHolderName: ''
                 });
                 handleClose();
+                if (onSuccess) {
+                    onSuccess(); 
+                }
             })
             .catch(error => {
                 console.error(employee ? 'Error updating employee:' : 'Error adding employee:', error);
@@ -711,6 +714,7 @@ const FormEmployee = ({ isOpen, onClose, employee }) => {
                             <div className="form-group">
                                 <label>Role<span className='warning-text'>*</span></label>
                                 <select name="role" required value={formData.role} onChange={handleChange}>
+                                    <option value="">Pilih Role</option>
                                     {roles.map(role => (
                                         <option key={role._id} value={role._id}>{role.role}</option>
                                     ))}
@@ -723,6 +727,7 @@ const FormEmployee = ({ isOpen, onClose, employee }) => {
                             <div className="form-group">
                                 <label>Shift<span className='warning-text'>*</span></label>
                                 <select name="shift" required value={formData.shift} onChange={handleChange}>
+                                    <option value="">Pilih Shift</option>
                                     {shifts.map(shift => (
                                         <option key={shift._id} value={shift._id}>{shift.shiftName}</option>
                                     ))}
@@ -734,7 +739,7 @@ const FormEmployee = ({ isOpen, onClose, employee }) => {
                             </div>
                             <div className="form-group">
                                 <label>Password<span className='warning-text'>*</span></label>
-                                <input name="password" required value={formData.password} onChange={handleChange} autoComplete="new-password"/>
+                                <input name="password" required value={formData.password} onChange={handleChange} autoComplete="new-password" />
                             </div>
                             <div className="form-group">
                                 <label>Rekening Atas Nama<span className='warning-text'>*</span></label>

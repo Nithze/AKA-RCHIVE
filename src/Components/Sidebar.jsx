@@ -52,7 +52,7 @@ const Sidebar = () => {
                         </li>
 
                         <li className="nav-link">
-                            <a href="#">
+                            <a href="/attendance">
                                 <i className='bx bx-calendar-check icon'></i>
                                 <span className="text nav-text">Attendance</span>
                             </a>

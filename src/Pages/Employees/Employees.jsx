@@ -257,25 +257,41 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
 import FormEmployee from '../../Components/FormEmployee';
 import axios from 'axios';
+import { toast } from 'sonner';
+
 
 export const Employees = () => {
     const [isDialogOpen, setDialogOpen] = useState(false);
     const [employees, setEmployees] = useState([]);
     const [selectedEmployee, setSelectedEmployee] = useState(null); // For editing employees
 
-    // Fetch employees when the component mounts
+    // // Fetch employees when the component mounts
+    // useEffect(() => {
+    //     const fetchEmployees = async () => {
+    //         try {
+    //             const response = await axios.get('http://localhost:5000/api/employees');
+    //             setEmployees(response.data);
+    //         } catch (error) {
+    //             console.error('Error fetching employees:', error);
+    //         }
+    //     };
+    //
+    //     fetchEmployees();
+    // }, []);
+    // Fetch employees saat komponen dimuat
     useEffect(() => {
-        const fetchEmployees = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/employees');
-                setEmployees(response.data);
-            } catch (error) {
-                console.error('Error fetching employees:', error);
-            }
-        };
-
         fetchEmployees();
     }, []);
+
+    // Fungsi untuk mem-fetch ulang data karyawan
+    const fetchEmployees = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/employees');
+            setEmployees(response.data);
+        } catch (error) {
+            console.error('Error fetching employees:', error);
+        }
+    };
 
     const handleOpenDialog = (employee = null) => {
         setSelectedEmployee(employee); // Set the employee to be edited
@@ -303,6 +319,8 @@ export const Employees = () => {
         try {
             await axios.delete(`http://localhost:5000/api/employees/${employeeId}`);
             setEmployees((prev) => prev.filter((employee) => employee._id !== employeeId));
+            toast.success('Karyawan berhasil dihapus!');
+            fetchEmployees();
         } catch (error) {
             console.error('Error deleting employee:', error);
         }
@@ -316,6 +334,7 @@ export const Employees = () => {
                 onAddEmployee={handleAddEmployee}
                 onEditEmployee={handleEditEmployee}
                 employee={selectedEmployee} // Pass selected employee for editing
+                onSuccess={fetchEmployees}
             />
             <div className="container">
                 <Sidebar className="sidebar" />
@@ -400,12 +419,23 @@ export const Employees = () => {
                                                     </td>
                                                     <td className="action">
                                                         <button className="btn" onClick={() => handleOpenDialog(employee)}>Edit</button>
+                                                        {/* <button */}
+                                                        {/*     className="warning-btn" */}
+                                                        {/*     onClick={() => handleDeleteEmployee(employee._id)} */}
+                                                        {/* > */}
+                                                        {/*     Delete */}
+                                                        {/* </button> */}
                                                         <button
                                                             className="warning-btn"
-                                                            onClick={() => handleDeleteEmployee(employee._id)}
+                                                            onClick={() => {
+                                                                if (window.confirm("Apakah Anda yakin ingin menghapus karyawan ini?")) {
+                                                                    handleDeleteEmployee(employee._id);
+                                                                }
+                                                            }}
                                                         >
                                                             Delete
                                                         </button>
+
                                                     </td>
                                                 </tr>
                                             ))}
