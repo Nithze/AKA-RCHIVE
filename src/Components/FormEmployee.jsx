@@ -156,13 +156,13 @@ const FormEmployee = ({ isOpen, onClose }) => {
         birthDate: '',
         gender: '',
         address: '',
-        accountNumber: '',
+        bankAccountNumber: '',
         role: '',
         startDate: '',
         shift: '',
         phoneNumber: '',
         password: '',
-        bankAccountName: ''
+        accountHolderName: ''
     });
 
     const overlayRef = useRef(null);
@@ -231,13 +231,13 @@ const FormEmployee = ({ isOpen, onClose }) => {
                     birthDate: '',
                     gender: 'male',
                     address: '',
-                    accountNumber: '',
+                    bankAccountNumber: '',
                     role: '',
                     startDate: '',
                     shift: '',
                     phoneNumber: '',
                     password: '',
-                    bankAccountName: ''
+                    accountHolderName: ''
                 });
                 handleClose();
             })
@@ -283,7 +283,7 @@ const FormEmployee = ({ isOpen, onClose }) => {
                             </div>
                             <div className="form-group">
                                 <label>No Rekening <span className='warning-text'>*</span></label>
-                                <input type="text" name="accountNumber" required value={formData.accountNumber} onChange={handleChange} />
+                                <input type="text" name="bankAccountNumber" required value={formData.bankAccountNumber} onChange={handleChange} />
                             </div>
                         </div>
 
@@ -320,7 +320,7 @@ const FormEmployee = ({ isOpen, onClose }) => {
                             </div>
                             <div className="form-group">
                                 <label>Rekening Atas Nama<span className='warning-text'>*</span></label>
-                                <input type="text" name="bankAccountName" required value={formData.bankAccountName} onChange={handleChange} />
+                                <input type="text" name="accountHolderName" required value={formData.accountHolderName} onChange={handleChange} />
                             </div>
                         </div>
                     </div>
