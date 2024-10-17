@@ -2,7 +2,7 @@ import './FormEmployee.scss';
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-const FormAddEmployee = ({ isOpen, onClose }) => {
+const FormEmployee = ({ isOpen, onClose }) => {
     const overlayRef = useRef(null);
     const dialogRef = useRef(null);
 
@@ -117,5 +117,5 @@ const FormAddEmployee = ({ isOpen, onClose }) => {
     );
 };
 
-export default FormAddEmployee;
+export default FormEmployee;
 
