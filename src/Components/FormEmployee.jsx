@@ -141,6 +141,7 @@
 //
 // export default FormEmployee;
 //
+//hehe
 import './FormEmployee.scss';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
@@ -153,7 +154,7 @@ const FormEmployee = ({ isOpen, onClose }) => {
         fullName: '',
         nik: '',
         birthDate: '',
-        gender: 'Male',
+        gender: '',
         address: '',
         accountNumber: '',
         role: '',
@@ -271,6 +272,7 @@ const FormEmployee = ({ isOpen, onClose }) => {
                             <div className="form-group">
                                 <label>Jenis Kelamin<span className='warning-text'>*</span></label>
                                 <select name="gender" value={formData.gender} onChange={handleChange}>
+                                    {/* <option value="">Pilih Gender</option> */}
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
@@ -287,9 +289,9 @@ const FormEmployee = ({ isOpen, onClose }) => {
 
                         <div className="form-right">
                             <div className="form-group">
-                                <label>Role/Jabatan<span className='warning-text'>*</span></label>
+                                <label>Role<span className='warning-text'>*</span></label>
                                 <select name="role" required value={formData.role} onChange={handleChange}>
-                                    <option value="">Pilih Jabatan</option>
+                                    {/* <option value="">Pilih Jabatan</option> */}
                                     {roles.map(role => (
                                         <option key={role._id} value={role._id}>{role.role}</option>
                                     ))}
@@ -302,7 +304,7 @@ const FormEmployee = ({ isOpen, onClose }) => {
                             <div className="form-group">
                                 <label>Shift<span className='warning-text'>*</span></label>
                                 <select name="shift" required value={formData.shift} onChange={handleChange}>
-                                    <option value="">Pilih Shift</option>
+                                    {/* <option value="">Pilih Shift</option> */}
                                     {shifts.map(shift => (
                                         <option key={shift._id} value={shift._id}>{shift.shiftName}</option>
                                     ))}
