@@ -40,12 +40,22 @@ import BlankPage from './Components/BlankPage.jsx';
 import { ThemeProvider } from './Services/ThemeContext.jsx';
 import Inventory from "./Pages/Inventory/Inventory.jsx";
 import ProtectedRoute from './Components/ProtectedRoute.jsx';  // Import ProtectedRoute
+import { Toaster } from 'sonner';
 
 function App() {
     return (
         <ThemeProvider>
             <Router>
                 <BlankPage />
+                <Toaster
+                    toastOptions={{
+                        style: {
+                            background: '#222',
+                            color: '#f9f9f9',
+                            border: '1px solid #444',
+                        },
+                    }}
+                />
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route element={<ProtectedRoute />}>  {/* Tempatkan ProtectedRoute di sini */}

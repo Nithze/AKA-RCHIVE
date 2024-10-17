@@ -3,6 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import Sidebar from '../../Components/Sidebar.jsx';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 export const Dashboard = () => {
     const cardLeftRef = useRef(null);
@@ -182,7 +183,7 @@ export const Dashboard = () => {
                         <div className="main-left">
                             <div className="title-csv">
                                 <div>Shift Now</div>
-                                <button className='btn-CSV'>Download CSV</button>
+                                <button className='btn-CSV'  onClick={() => toast.error('This is a sonner toast')}>Download CSV</button>
                             </div>
                             <div className="list-shift">
                                 <div className="table-container">
