@@ -38,6 +38,7 @@ import Employees from './Pages/Employees/Employees.jsx';
 import Attendance from './Pages/Attendance/Attendance.jsx';
 import BlankPage from './Components/BlankPage.jsx';
 import { ThemeProvider } from './Services/ThemeContext.jsx';
+import Inventory from "./Pages/Inventory/Inventory.jsx";
 import ProtectedRoute from './Components/ProtectedRoute.jsx';  // Import ProtectedRoute
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/employees" element={<Employees />} />
                         <Route path="/attendance" element={<Attendance />} />
+                        <Route path="/inventory" element={<Inventory />} />
                     </Route>
                 </Routes>
             </Router>

@@ -75,7 +75,7 @@ const Sidebar = () => {
                         </li>
 
                         <li className="nav-link">
-                            <a href="#">
+                            <a href="/Inventory">
                                 <i className='bx bx-package icon'></i>
                                 <span className="text nav-text">Inventory</span>
                             </a>

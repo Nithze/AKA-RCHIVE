@@ -9,6 +9,7 @@ export const Dashboard = () => {
     const cardRightRef = useRef(null);
     const [shiftData, setShiftData] = useState([]); // State untuk menyimpan data shift
     const [cesData, setCesData] = useState({}); // State untuk menyimpan data CES
+    const [inventoryData, setInventoryData] = useState({}); // State untuk menyimpan data inventory
     const [isHighlight, setIsHighlight] = useState(false); // State untuk menentukan mode
 
     useEffect(() => {
@@ -46,8 +47,19 @@ export const Dashboard = () => {
                 console.error("Error fetching CES data:", error);
             }
         };
+        // Panggilan API untuk data Inventory
+		const fetchInventoryData = async () => {
+			try {
+				const response = await axios.get("http://localhost:5000/api/item"); // Adjust this URL to your API endpoint
+				setInventoryData(response.data); // Simpan data inventory ke dalam state
+				console.log(setInventoryData);
+			} catch (error) {
+				console.error("Error fetching inventory data:", error);
+			}
+		};
 
         fetchShiftData();
+        fetchInventoryData();
         fetchCesData();
     }, []);
 
@@ -136,17 +148,33 @@ export const Dashboard = () => {
                         </div>
                     {/* end card CES */}
 
-                        <div className="card-right" ref={cardRightRef}>
-                            <div className="card-title">
-                                <div>Inventory</div>
-                            </div>
-                            <div className="card-value">
-                                <div>170</div>
-                            </div>
-                            <div className="card-description">
-                                <div>total inventory of 20 items</div>
-                            </div>
-                        </div>
+                        {/* <div className="card-right" ref={cardRightRef}> */}
+                        {/*     <div className="card-title"> */}
+                        {/*         <div>Inventory</div> */}
+                        {/*     </div> */}
+                        {/*     <div className="card-value"> */}
+                        {/*         <div>170</div> */}
+                        {/*     </div> */}
+                        {/*     <div className="card-description"> */}
+                        {/*         <div>total inventory of 20 items</div> */}
+                        {/*     </div> */}
+                        {/* </div> */}
+                        
+						<div className="card-right" ref={cardRightRef}>
+							<div className="card-title">
+								<div>Inventory</div>
+							</div>
+							<div className="card-value">
+								<div>{inventoryData.totalStock || "0"}</div>{" "}
+								{/* Render total stock */}
+							</div>
+							<div className="card-description">
+								<div>
+									total inventory of {inventoryData.totalItems || "0"} items
+								</div>{" "}
+								{/* Render total items */}
+							</div>
+						</div>
                     </div>
 
                     {/* Main Table */}
