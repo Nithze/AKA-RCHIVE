@@ -310,11 +310,11 @@ export const Employees = () => {
 
     return (
         <>
-            <FormEmployee 
-                isOpen={isDialogOpen} 
-                onClose={handleCloseDialog} 
-                onAddEmployee={handleAddEmployee} 
-                onEditEmployee={handleEditEmployee} 
+            <FormEmployee
+                isOpen={isDialogOpen}
+                onClose={handleCloseDialog}
+                onAddEmployee={handleAddEmployee}
+                onEditEmployee={handleEditEmployee}
                 employee={selectedEmployee} // Pass selected employee for editing
             />
             <div className="container">
@@ -323,7 +323,7 @@ export const Employees = () => {
                     <header className="header">
                         <div className="header-left">
                             <h1>Manage your employees</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <p>Easily manage and organize employee information.</p>
                         </div>
                         <div className="header-right">
                             <button className="btn" onClick={() => handleOpenDialog()}>
@@ -335,6 +335,33 @@ export const Employees = () => {
 
                     <div className="main-container">
                         <div className="main">
+                            <div className="toolbar">
+                                <div className="left">
+                                    <div className="search-bar">
+                                        <input type="text" placeholder='Search Here ...' />
+                                    </div>
+                                    <div className="filter">
+                                        <select>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <select>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div className="right">
+                                    <div className="alert">
+                                        <i className='bx bx-error'></i>
+                                        <a href='/employees'>
+                                            This is data for all employees, be careful in changing the data</a>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="list-employees">
                                 <div className="table-container">
                                     <table>
@@ -373,8 +400,8 @@ export const Employees = () => {
                                                     </td>
                                                     <td className="action">
                                                         <button className="btn" onClick={() => handleOpenDialog(employee)}>Edit</button>
-                                                        <button 
-                                                            className="warning-btn" 
+                                                        <button
+                                                            className="warning-btn"
                                                             onClick={() => handleDeleteEmployee(employee._id)}
                                                         >
                                                             Delete
