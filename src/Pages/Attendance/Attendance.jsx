@@ -170,7 +170,7 @@ export const Attendance = () => {
             case 'Absent':
                 return 'orange';
             case 'Alpha':
-                return 'red';
+                return '#ff0000';
             case 0:
                 return '#222';
             default:
