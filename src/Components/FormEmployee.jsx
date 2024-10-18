@@ -561,12 +561,12 @@ const FormEmployee = ({ isOpen, onClose, employee, onSuccess }) => {
         birthDate: '',
         gender: '',
         address: '',
-        bankAccountNumber: '',
         role: '',
         startDate: '',
         shift: '',
         phoneNumber: '',
         password: '',
+        bankAccountNumber: '',
         accountHolderName: ''
     });
 
@@ -607,12 +607,12 @@ const FormEmployee = ({ isOpen, onClose, employee, onSuccess }) => {
                 birthDate: employee.birthDate.split('T')[0], // Format date
                 gender: employee.gender,
                 address: employee.address,
-                bankAccountNumber: employee.bankAccountNumber,
                 role: employee.role._id,
                 startDate: employee.startDate.split('T')[0], // Format date
                 shift: employee.shift._id,
                 phoneNumber: employee.phoneNumber,
                 password: employee.password,
+                bankAccountNumber: employee.bankAccountNumber,
                 accountHolderName: employee.accountHolderName
             });
         }
@@ -651,12 +651,12 @@ const FormEmployee = ({ isOpen, onClose, employee, onSuccess }) => {
                     birthDate: '',
                     gender: '',
                     address: '',
-                    bankAccountNumber: '',
                     role: '',
                     startDate: '',
                     shift: '',
                     phoneNumber: '',
                     password: '',
+                    bankAccountNumber: '',
                     accountHolderName: ''
                 });
                 handleClose();
