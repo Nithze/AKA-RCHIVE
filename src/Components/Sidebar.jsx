@@ -57,6 +57,12 @@ const Sidebar = () => {
                                 <span className="text nav-text">Attendance</span>
                             </a>
                         </li>
+                        <li className="nav-link">
+                            <a href="/request">
+                                <i className='bx bx-calendar-check icon'></i>
+                                <span className="text nav-text">Request</span>
+                            </a>
+                        </li>
 
 
 

@@ -38,6 +38,7 @@ import Employees from './Pages/Employees/Employees.jsx';
 import Attendance from './Pages/Attendance/Attendance.jsx';
 import Shifts from './Pages/Shifts/Shifts.jsx';
 import Roles from './Pages/Roles/Roles.jsx';
+import Request from './Pages/Request/Request.jsx';
 import BlankPage from './Components/BlankPage.jsx';
 import { ThemeProvider } from './Services/ThemeContext.jsx';
 import Inventory from "./Pages/Inventory/Inventory.jsx";
@@ -66,6 +67,7 @@ function App() {
                         <Route path="/attendance" element={<Attendance />} />
                         <Route path="/shifts" element={<Shifts />} />
                         <Route path="/roles" element={<Roles />} />
+                        <Route path="/request" element={<Request />} />
                         <Route path="/inventory" element={<Inventory />} />
                     </Route>
                 </Routes>
