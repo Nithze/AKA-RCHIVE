@@ -38,7 +38,7 @@ const Sidebar = () => {
                         </li>
 
                         <li className="nav-link">
-                            <a href="#">
+                            <a href="/shifts">
                                 <i className='bx bx-time icon'></i>
                                 <span className="text nav-text">Shift</span>
                             </a>

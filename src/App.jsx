@@ -36,6 +36,7 @@ import Login from './Pages/Auth/Login.jsx';
 import Dashboard from './Pages/Dashboard/Dashboard.jsx';
 import Employees from './Pages/Employees/Employees.jsx';
 import Attendance from './Pages/Attendance/Attendance.jsx';
+import Shifts from './Pages/Shifts/Shifts.jsx';
 import BlankPage from './Components/BlankPage.jsx';
 import { ThemeProvider } from './Services/ThemeContext.jsx';
 import Inventory from "./Pages/Inventory/Inventory.jsx";
@@ -62,6 +63,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/employees" element={<Employees />} />
                         <Route path="/attendance" element={<Attendance />} />
+                        <Route path="/shifts" element={<Shifts />} />
                         <Route path="/inventory" element={<Inventory />} />
                     </Route>
                 </Routes>

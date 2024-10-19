@@ -166,7 +166,7 @@ export const Attendance = () => {
     const getStatusColor = (status) => {
         switch (status) {
             case 'Present':
-                return 'green';
+                return '#52398e';
             case 'Absent':
                 return 'orange';
             case 'Alpha':
@@ -185,7 +185,7 @@ export const Attendance = () => {
                 <div className="content">
                     <header className="header">
                         <div className="header-left">
-                            <h1>Manage your employees</h1>
+                            <h1>Attendance</h1>
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
                         </div>
                     </header>
