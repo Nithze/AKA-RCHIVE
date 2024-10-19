@@ -196,13 +196,11 @@
 //         </div>
 //     );
 // };
-//
-// export default FormShift;
-//
 import './FormShift.scss';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import axios from 'axios';
+import { toast } from 'sonner'; // Import Sonner toast
 
 const FormShift = ({ isOpen, onClose, shift, refreshShifts }) => {
     const overlayRef = useRef(null);
@@ -271,19 +269,22 @@ const FormShift = ({ isOpen, onClose, shift, refreshShifts }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateTime(shiftData.startTime) || !validateTime(shiftData.endTime)) {
-            alert('Please enter time in HH:MM format.');
+            toast.error('Please enter time in HH:MM format.'); // Show error toast
             return;
         }
         try {
             if (shift) {
                 await axios.put(`http://localhost:5000/api/shifts/${shift._id}`, shiftData);
+                toast.success('Shift updated successfully!'); // Show success toast
             } else {
                 await axios.post('http://localhost:5000/api/shifts', shiftData);
+                toast.success('Shift added successfully!'); // Show success toast
             }
             refreshShifts();
             handleClose();
         } catch (error) {
             console.error('Error submitting shift data:', error);
+            toast.error('Error submitting shift data. Please try again.'); // Show error toast
         }
     };
 
@@ -317,6 +318,14 @@ const FormShift = ({ isOpen, onClose, shift, refreshShifts }) => {
                             </div>
                             <div className="form-right">
                                 <div className="form-group">
+                                    <label>Description</label>
+                                    <input 
+                                        type="text" 
+                                        value={shiftData.description}
+                                        onChange={(e) => setShiftData({ ...shiftData, description: e.target.value })}
+                                    />
+                                </div>
+                                <div className="form-group">
                                     <label>End Time<span className='warning-text'>*</span></label>
                                     <input 
                                         type="text" 
@@ -324,14 +333,6 @@ const FormShift = ({ isOpen, onClose, shift, refreshShifts }) => {
                                         value={shiftData.endTime}
                                         onChange={(e) => handleTimeChange(e, 'endTime')}
                                         required 
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label>Description</label>
-                                    <input 
-                                        type="text" 
-                                        value={shiftData.description}
-                                        onChange={(e) => setShiftData({ ...shiftData, description: e.target.value })}
                                     />
                                 </div>
                             </div>
