@@ -1,0 +1,97 @@
+.main {
+  width: 100%;
+}
+
+.list-employees table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  scrollbar-width: none;
+
+}
+
+.list-employees thead th {
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.list-employees tbody td {
+  border-top: 1px solid var(--border-color);
+  padding: 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.list-employees thead th {
+  color: var(--text-color);
+}
+
+
+.toolbar {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  gap: 25px;
+  margin-bottom: 25px;
+  justify-content: space-between;
+
+  .left {
+    display: flex;
+    width: 50%;
+    gap: 25px;
+  }
+
+  .right {
+    display: flex;
+    width: 50%;
+    gap: 25px;
+  }
+
+  .search-bar {
+    display: flex;
+    width: 60%;
+  }
+
+  .filter {
+    width: 40%;
+    display: flex;
+    gap: 25px;
+  }
+
+  .alert {
+    display: flex;
+    text-align: right;
+    background: var(--primary-bg-color);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+
+  i {
+    color: var(--warning-color);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+  }
+
+  select {
+    background: var(--primary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    padding: var(--btn-padding);
+  }
+
+  input {
+    border: 1px solid var(--border-color);
+    background: var(--primary-bg-color);
+    color: var(--text-color);
+    border-radius: 4px;
+  }
+}
+
+

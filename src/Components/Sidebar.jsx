@@ -31,7 +31,7 @@ const Sidebar = () => {
                         </li>
 
                         <li className="nav-link">
-                            <a href="#">
+                            <a href="/roles">
                                 <i className='bx bx-check-shield icon'></i>
                                 <span className="text nav-text">Role & Salary</span>
                             </a>
