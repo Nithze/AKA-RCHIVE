@@ -168,7 +168,7 @@ export const Attendance = () => {
             case 'Present':
                 return '#52398e';
             case 'Absent':
-                return 'orange';
+                return '#ff4d00';
             case 'Alpha':
                 return '#ff0000';
             case 0:
