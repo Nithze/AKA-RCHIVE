@@ -1,5 +1,6 @@
 import "./Inventory.scss";
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import axios from "axios";
 import Sidebar from "../../Components/Sidebar.jsx";
 import FormItem from "../../Components/FormItem.jsx";
@@ -45,11 +46,13 @@ export const Inventory = () => {
 				.delete(`http://localhost:5000/api/item/${itemId}`)
 				.then((response) => {
 					console.log("Item deleted:", response.data);
+					toast.success("Item berhasil dihapus!");
 					const updatedItems = items.filter((item, idx) => idx !== index);
 					setItems(updatedItems);
 				})
 				.catch((error) => {
 					console.error("Error deleting item:", error);
+					toast.error("Something went wrong !");
 				});
 		}
 	}
@@ -84,9 +87,13 @@ export const Inventory = () => {
 				item._id === updatedItem._id ? updatedItem : item
 			);
 			setItems(updatedItems);
+
 			handleCloseDialog();
+
+			toast.success("Item berhasil dihapus!");
 		} catch (error) {
 			console.error("Error updating item:", error);
+			toast.error("Something went wrong !");
 		}
 	};
 

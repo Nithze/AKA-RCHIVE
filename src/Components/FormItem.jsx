@@ -126,21 +126,6 @@ const FormItem = ({ isOpen, onClose, item, onSubmit }) => {
 							/>
 						</div>
 
-						<div className="form-control">
-							<label htmlFor="reorder_level">Reorder Level</label>
-							<select
-								id="reorder_level"
-								name="reorder_level"
-								value={formData.reorder_level}
-								onChange={handleInputChange}
-								required
-							>
-								<option value="1">Re-order Immediately</option>
-								<option value="2">Caution</option>
-								<option value="3">Plentiful</option>
-							</select>
-						</div>
-
 						<button type="submit" className="submit-btn">
 							Save Changes
 						</button>
