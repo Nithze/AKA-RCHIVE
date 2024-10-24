@@ -99,7 +99,7 @@ body {
 
 .btn {
     background-color: var(--primary-bg-color);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     color: var(--text-color);
 }
 
@@ -109,7 +109,7 @@ body {
 
 .warning-btn {
     background-color: var(--primary-bg-color);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     color: var(--warning-color);
 }
 
