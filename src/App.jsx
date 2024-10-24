@@ -37,6 +37,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import Employees from "./Pages/Employees/Employees.jsx";
 import Attendance from "./Pages/Attendance/Attendance.jsx";
 import Shifts from "./Pages/Shifts/Shifts.jsx";
+import Payroll from "./Pages/Payroll/Payroll.jsx";
 import Roles from "./Pages/Roles/Roles.jsx";
 import Request from "./Pages/Request/Request.jsx";
 import BlankPage from "./Components/BlankPage.jsx";
@@ -69,6 +70,7 @@ function App() {
 						<Route path="/employees" element={<Employees />} />
 						<Route path="/attendance" element={<Attendance />} />
 						<Route path="/shifts" element={<Shifts />} />
+						<Route path="/payroll" element={<Payroll />} />
 						<Route path="/roles" element={<Roles />} />
 						<Route path="/request" element={<Request />} />
 						<Route path="/inventory" element={<Inventory />} />

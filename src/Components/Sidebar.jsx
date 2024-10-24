@@ -64,9 +64,9 @@ const Sidebar = () => {
 						</li>
 
 						<li className="nav-link">
-							<a href="#">
+							<a href="/payroll">
 								<i className="bx bx-money icon"></i>
-								<span className="text nav-text">Salary Distribution</span>
+								<span className="text nav-text">Payroll</span>
 							</a>
 						</li>
 
