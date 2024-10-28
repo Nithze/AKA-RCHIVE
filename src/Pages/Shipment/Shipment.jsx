@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import axios from "axios";
 import Sidebar from "../../Components/Sidebar.jsx";
-import FormItem from "../../Components/FormItem.jsx";
+import FormShipment from "../../Components/FormShipment.jsx";
 import DetailsModal from "../../Components/DetailsModal.jsx";
 
 export const Shipment = () => {
@@ -36,18 +36,23 @@ export const Shipment = () => {
 	};
 
 	// Fetch shipments from the API
+	const fetchShipments = async () => {
+		try {
+			const response = await axios.get("http://localhost:5000/api/history/");
+			setShipments(response.data);
+		} catch (error) {
+			console.error("Error fetching shipments:", error);
+		}
+	};
 	useEffect(() => {
-		const fetchShipments = async () => {
-			try {
-				const response = await axios.get("http://localhost:5000/api/history/");
-				setShipments(response.data);
-			} catch (error) {
-				console.error("Error fetching shipments:", error);
-			}
-		};
-
 		fetchShipments();
 	}, []);
+
+	const handleAddShipment = async () => {
+		// After adding the new shipment, refresh the shipment list
+		await fetchShipments();
+		setDialogOpen(false); // Close the dialog
+	};
 
 	// Function to handle sorting by date (ASC or DSC)
 	const handleSortChange = (e) => {
@@ -69,12 +74,17 @@ export const Shipment = () => {
 		setShipments(sortedShipments);
 	};
 
+	function handleDelete(index) {
+		toast("this is delete button " + index);
+	}
+
 	return (
 		<>
-			<FormItem
+			<FormShipment
 				isOpen={isDialogOpen}
 				onClose={handleCloseDialog}
 				item={selectedShipment}
+				onAddShipment={handleAddShipment}
 				onSubmit={() => {}} // Empty function for now
 			/>
 
