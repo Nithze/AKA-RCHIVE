@@ -97,7 +97,7 @@ const Sidebar = () => {
 						<a onClick={toggleTheme}>
 							<i className={`bx ${darkMode ? "bx-moon" : "bx-sun"} icon`}></i>
 							<span className="theme-toggle">
-								{darkMode ? "Light Mode" : "Dark Mode"}
+								{darkMode ? "Dark Mode" : "Light Mode"}
 							</span>
 						</a>
 					</li>
