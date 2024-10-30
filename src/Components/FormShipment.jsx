@@ -199,7 +199,7 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 					</p>
 
 					<div className="form-container">
-						<div className="form-left">
+						<div className="form-ship">
 							<div className="form-group">
 								<label>
 									Tanggal<span className="warning-text">*</span>
