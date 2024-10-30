@@ -2,8 +2,8 @@
 import "./FormShipment.scss";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { toast } from "sonner"; // Import Sonner toast
-import axios from "axios"; // For fetching suppliers
+import { toast } from "sonner";
+import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
@@ -13,9 +13,13 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 		{ item_name: "", quantity: "", supplier: "" },
 	]);
 	const [suppliers, setSuppliers] = useState([]);
+	const [items, setItems] = useState([]); // State to store all items
 	const deductionsRef = useRef(null);
 	const [showSuggestions, setShowSuggestions] = useState(false);
+	const [showItemSuggestions, setShowItemSuggestions] = useState(false); // State for item suggestions
 	const [userId, setUserId] = useState(null);
+	const [focusedItemIndex, setFocusedItemIndex] = useState(null);
+	const [focusedSupplierIndex, setFocusedSupplierIndex] = useState(null);
 
 	// Animation for showing/hiding modal
 	useEffect(() => {
@@ -60,15 +64,27 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 			}
 		};
 
+		// Fetch all items from API
+		const fetchItems = async () => {
+			try {
+				const response = await axios.get("http://localhost:5000/api/item");
+				setItems(response.data.items);
+			} catch (error) {
+				console.error("Error fetching items:", error);
+				toast.error("Failed to load items");
+			}
+		};
+
 		fetchSuppliers();
+		fetchItems();
 	}, []);
 
 	useEffect(() => {
-		const token = localStorage.getItem("token"); // Retrieve the JWT from localStorage
+		const token = localStorage.getItem("token");
 		if (token) {
 			try {
-				const decoded = jwtDecode(token); // Decode the token
-				setUserId(decoded.id); // Get the user ID
+				const decoded = jwtDecode(token);
+				setUserId(decoded.id);
 			} catch (error) {
 				console.error("Invalid token", error);
 				toast.error("Failed to authenticate");
@@ -94,11 +110,10 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 	};
 
 	const addDeduction = () => {
-		const newDeductions = [
+		setDeductions([
 			...deductions,
 			{ item_name: "", quantity: "", supplier: "" },
-		];
-		setDeductions(newDeductions);
+		]);
 
 		gsap.fromTo(
 			deductionsRef.current.lastChild,
@@ -134,9 +149,23 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 		setDeductions(updatedDeductions);
 	};
 
+	// Filter item names as the user types
+	const handleItemInputChange = (index, value) => {
+		const updatedDeductions = [...deductions];
+		updatedDeductions[index].item_name = value;
+		setDeductions(updatedDeductions);
+	};
+
 	// Show suggestions with animation
-	const showSuggestionsDropdown = () => {
-		setShowSuggestions(true);
+	const showSuggestionsDropdown = (type, index) => {
+		if (type === "item") {
+			setFocusedItemIndex(index);
+			setShowItemSuggestions(true);
+		} else {
+			setFocusedSupplierIndex(index);
+			setShowSuggestions(true);
+		}
+
 		gsap.fromTo(
 			".suggestions",
 			{ height: 0, opacity: 0 },
@@ -145,13 +174,21 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 	};
 
 	// Hide suggestions with animation
-	const hideSuggestionsDropdown = () => {
+	const hideSuggestionsDropdown = (type) => {
 		gsap.to(".suggestions", {
 			height: 0,
 			opacity: 0,
 			duration: 0.3,
 			ease: "power2.in",
-			onComplete: () => setShowSuggestions(false),
+			onComplete: () => {
+				if (type === "item") {
+					setFocusedItemIndex(null);
+					setShowItemSuggestions(false);
+				} else {
+					setFocusedSupplierIndex(null);
+					setShowSuggestions(false);
+				}
+			},
 		});
 	};
 
@@ -213,17 +250,46 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 								<div className="multi-input" ref={deductionsRef}>
 									{deductions.map((deduction, index) => (
 										<div className="deduction-item" key={index}>
-											<input
-												className="inputz"
-												type="text"
-												placeholder="Nama Item"
-												value={deduction.item_name}
-												onChange={(e) => {
-													const updatedDeductions = [...deductions];
-													updatedDeductions[index].item_name = e.target.value;
-													setDeductions(updatedDeductions);
-												}}
-											/>
+											{/* Item Name Auto-suggestion */}
+											<div className="autosuggest-container">
+												<input
+													className="inputz"
+													type="text"
+													placeholder="Nama Item"
+													value={deduction.item_name}
+													onFocus={() => showSuggestionsDropdown("item", index)}
+													onBlur={() => hideSuggestionsDropdown("item")}
+													onChange={(e) =>
+														handleItemInputChange(index, e.target.value)
+													}
+												/>
+												{showItemSuggestions && focusedItemIndex === index && (
+													<div className="suggestions">
+														{items
+															.filter((item) =>
+																item.item_name
+																	.toLowerCase()
+																	.includes(deduction.item_name.toLowerCase())
+															)
+															.slice(0, 3) // Limit to top 3 suggestions
+															.map((suggestion, i) => (
+																<div
+																	key={i}
+																	className="suggestion"
+																	onClick={() =>
+																		handleItemInputChange(
+																			index,
+																			suggestion.item_name
+																		)
+																	}
+																>
+																	{suggestion.item_name}
+																</div>
+															))}
+													</div>
+												)}
+											</div>
+
 											<input
 												className="inputx"
 												type="number"
@@ -235,20 +301,22 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 													setDeductions(updatedDeductions);
 												}}
 											/>
-											{/* Supplier Auto-suggestion with Dropdown */}
+											{/* Supplier Auto-suggestion */}
 											<div className="autosuggest-container">
 												<input
 													className="inputz"
 													type="text"
 													placeholder="Enter Supplier"
 													value={deduction.supplier}
-													onFocus={showSuggestionsDropdown}
-													onBlur={hideSuggestionsDropdown}
+													onFocus={() =>
+														showSuggestionsDropdown("supplier", index)
+													}
+													onBlur={() => hideSuggestionsDropdown("supplier")}
 													onChange={(e) =>
 														handleSupplierInputChange(index, e.target.value)
 													}
 												/>
-												{showSuggestions && (
+												{showSuggestions && focusedSupplierIndex === index && (
 													<div className="suggestions">
 														{suppliers
 															.filter((supplier) =>
@@ -256,6 +324,7 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 																	.toLowerCase()
 																	.includes(deduction.supplier.toLowerCase())
 															)
+															.slice(0, 3) // Limit to top 3 suggestions
 															.map((suggestion, i) => (
 																<div
 																	key={i}

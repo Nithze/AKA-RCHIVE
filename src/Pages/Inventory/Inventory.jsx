@@ -8,8 +8,10 @@ import FormItem from "../../Components/FormItem.jsx";
 export const Inventory = () => {
 	const [isDialogOpen, setDialogOpen] = useState(false);
 	const [items, setItems] = useState([]);
-	const [selectedItem, setSelectedItem] = useState(null); // State to store the selected item for editing
+	const [selectedItem, setSelectedItem] = useState(null);
+	const [sortField, setSortField] = useState("");
 	const [sortOrder, setSortOrder] = useState("asc");
+	const [searchQuery, setSearchQuery] = useState(""); // State for search input
 
 	const handleOpenDialog = (item) => {
 		setSelectedItem(item);
@@ -18,7 +20,7 @@ export const Inventory = () => {
 
 	const handleCloseDialog = () => {
 		setDialogOpen(false);
-		setSelectedItem(null); // Clear the selected item when closing
+		setSelectedItem(null);
 	};
 
 	// Fetch items from the API
@@ -31,80 +33,83 @@ export const Inventory = () => {
 				console.error("Error fetching items:", error);
 			}
 		};
-
 		fetchItems();
 	}, []);
 
-	function handleDelete(index) {
+	const handleDelete = (index) => {
 		const itemId = items[index]._id;
 		const confirmDelete = window.confirm(
-			`Are you sure you want to delete this item?`
+			"Are you sure you want to delete this item?"
 		);
-
 		if (confirmDelete) {
 			axios
 				.delete(`http://localhost:5000/api/item/${itemId}`)
 				.then((response) => {
-					console.log("Item deleted:", response.data);
 					toast.success("Item berhasil dihapus!");
-					const updatedItems = items.filter((item, idx) => idx !== index);
+					const updatedItems = items.filter((_, idx) => idx !== index);
 					setItems(updatedItems);
 				})
 				.catch((error) => {
-					console.error("Error deleting item:", error);
 					toast.error("Something went wrong !");
+					console.error("Error deleting item:", error);
 				});
 		}
-	}
+	};
 
-	// Function to handle sorting
-	const handleSortChange = (e) => {
-		const order = e.target.value;
+	const sortItems = (field) => {
+		const order = sortOrder === "asc" ? "dsc" : "asc";
+		setSortField(field);
 		setSortOrder(order);
 
 		const sortedItems = [...items].sort((a, b) => {
-			if (order === "dsc") {
-				return a.stock - b.stock;
-			} else if (order === "asc") {
-				return b.stock - a.stock;
+			if (field === "item_name" || field === "supplier") {
+				return order === "asc"
+					? a[field].localeCompare(b[field])
+					: b[field].localeCompare(a[field]);
+			} else if (field === "stock") {
+				return order === "asc" ? b.stock - a.stock : a.stock - b.stock;
+			} else if (field === "reorder_level") {
+				return order === "asc"
+					? a.reorder_level - b.reorder_level
+					: b.reorder_level - a.reorder_level;
 			}
 			return 0;
 		});
-
 		setItems(sortedItems);
 	};
 
 	const handleUpdateItem = async (updatedItem) => {
 		try {
-			// Send the updated item data to the server
 			await axios.put(
 				`http://localhost:5000/api/item/${updatedItem._id}`,
 				updatedItem
 			);
-
-			// Update the local state
 			const updatedItems = items.map((item) =>
 				item._id === updatedItem._id ? updatedItem : item
 			);
 			setItems(updatedItems);
-
 			handleCloseDialog();
-
 			toast.success("Item berhasil dihapus!");
 		} catch (error) {
-			console.error("Error updating item:", error);
 			toast.error("Something went wrong !");
+			console.error("Error updating item:", error);
 		}
 	};
 
+	// Filter items based on search query
+	const filteredItems = items.filter((item) =>
+		Object.values(item).some((value) =>
+			value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+		)
+	);
+
 	return (
 		<>
-			{/* Pass selectedItem to FormItem */}
 			<FormItem
 				isOpen={isDialogOpen}
 				onClose={handleCloseDialog}
 				item={selectedItem}
-				onSubmit={handleUpdateItem} // Handle the form submission
+				onSubmit={handleUpdateItem}
 			/>
 			<div className="container">
 				<Sidebar className="sidebar" />
@@ -130,13 +135,12 @@ export const Inventory = () => {
 							<div className="toolbar">
 								<div className="left">
 									<div className="search-bar">
-										<input type="text" placeholder="Search Here ..." />
-									</div>
-									<div className="filter">
-										<select value={sortOrder} onChange={handleSortChange}>
-											<option value="asc">ASC</option>
-											<option value="dsc">DSC</option>
-										</select>
+										<input
+											type="text"
+											placeholder="Search Here ..."
+											value={searchQuery}
+											onChange={(e) => setSearchQuery(e.target.value)}
+										/>
 									</div>
 								</div>
 							</div>
@@ -153,15 +157,39 @@ export const Inventory = () => {
 										</colgroup>
 										<thead>
 											<tr>
-												<th className="name">Item Name</th>
-												<th className="stock">Stock</th>
-												<th className="supplier">Supplier</th>
-												<th className="reorder">Re-order Status</th>
+												<th className="name">
+													<button onClick={() => sortItems("item_name")}>
+														Item Name{" "}
+														{sortField === "item_name" &&
+															(sortOrder === "asc" ? "▲" : "▼")}
+													</button>
+												</th>
+												<th className="stock">
+													<button onClick={() => sortItems("stock")}>
+														Stock{" "}
+														{sortField === "stock" &&
+															(sortOrder === "asc" ? "▲" : "▼")}
+													</button>
+												</th>
+												<th className="supplier">
+													<button onClick={() => sortItems("supplier")}>
+														Supplier{" "}
+														{sortField === "supplier" &&
+															(sortOrder === "asc" ? "▲" : "▼")}
+													</button>
+												</th>
+												<th className="reorder">
+													<button onClick={() => sortItems("reorder_level")}>
+														Re-order Status{" "}
+														{sortField === "reorder_level" &&
+															(sortOrder === "asc" ? "▲" : "▼")}
+													</button>
+												</th>
 												<th className="action">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											{items.map((item, index) => (
+											{filteredItems.map((item, index) => (
 												<tr key={item._id}>
 													<td className="name">
 														<div>{item.item_name}</div>

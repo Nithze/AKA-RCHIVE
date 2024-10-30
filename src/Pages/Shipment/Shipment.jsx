@@ -5,13 +5,18 @@ import axios from "axios";
 import Sidebar from "../../Components/Sidebar.jsx";
 import FormShipment from "../../Components/FormShipment.jsx";
 import DetailsModal from "../../Components/DetailsModal.jsx";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const Shipment = () => {
 	const [isDialogOpen, setDialogOpen] = useState(false);
-	const [isDetailsOpen, setDetailsOpen] = useState(false); // State for the Details modal
+	const [isDetailsOpen, setDetailsOpen] = useState(false);
 	const [shipments, setShipments] = useState([]);
-	const [selectedShipment, setSelectedShipment] = useState(null); // State to store the selected shipment for editing or details
-	const [sortOrder, setSortOrder] = useState("asc");
+	const [filteredShipments, setFilteredShipments] = useState([]);
+	const [selectedShipment, setSelectedShipment] = useState(null);
+	const [searchQuery, setSearchQuery] = useState("");
+	const [startDate, setStartDate] = useState(null);
+	const [endDate, setEndDate] = useState(null);
 
 	const handleOpenDialog = (shipment) => {
 		setSelectedShipment(shipment);
@@ -20,63 +25,83 @@ export const Shipment = () => {
 
 	const handleCloseDialog = () => {
 		setDialogOpen(false);
-		setSelectedShipment(null); // Clear the selected shipment when closing
+		setSelectedShipment(null);
 	};
 
-	// Handle opening the details modal
 	const handleOpenDetails = (shipment) => {
 		setSelectedShipment(shipment);
-		setDetailsOpen(true); // Open the details modal
+		setDetailsOpen(true);
 	};
 
-	// Close the details modal
 	const handleCloseDetails = () => {
 		setDetailsOpen(false);
-		setSelectedShipment(null); // Clear selected shipment when closing details
+		setSelectedShipment(null);
 	};
 
-	// Fetch shipments from the API
 	const fetchShipments = async () => {
 		try {
 			const response = await axios.get("http://localhost:5000/api/history/");
 			setShipments(response.data);
+			setFilteredShipments(response.data);
 		} catch (error) {
 			console.error("Error fetching shipments:", error);
 		}
 	};
+
 	useEffect(() => {
 		fetchShipments();
 	}, []);
 
 	const handleAddShipment = async () => {
-		// After adding the new shipment, refresh the shipment list
 		await fetchShipments();
-		setDialogOpen(false); // Close the dialog
+		setDialogOpen(false);
 	};
 
-	// Function to handle sorting by date (ASC or DSC)
-	const handleSortChange = (e) => {
-		const order = e.target.value;
-		setSortOrder(order);
+	const handleSearch = (e) => {
+		const query = e.target.value.toLowerCase();
+		setSearchQuery(query);
+		filterData(query, startDate, endDate);
+	};
 
-		const sortedShipments = [...shipments].sort((a, b) => {
-			const dateA = new Date(a.date);
-			const dateB = new Date(b.date);
+	const handleDateChange = (dates) => {
+		const [start, end] = dates;
+		setStartDate(start);
+		setEndDate(end);
+		filterData(searchQuery, start, end);
+	};
 
-			if (order === "asc") {
-				return dateA - dateB; // Ascending order (earlier to later)
-			} else if (order === "dsc") {
-				return dateB - dateA; // Descending order (later to earlier)
+	const filterData = (query, start, end) => {
+		let filtered = shipments;
+		if (query) {
+			filtered = filtered.filter((shipment) =>
+				shipment.user_id.name.toLowerCase().includes(query)
+			);
+		}
+		if (start && end) {
+			filtered = filtered.filter((shipment) => {
+				const shipmentDate = new Date(shipment.date);
+				return shipmentDate >= start && shipmentDate <= end;
+			});
+		}
+		setFilteredShipments(filtered);
+	};
+
+	const handleDelete = async (id) => {
+		// Use browser's confirmation dialog
+		const isConfirmed = window.confirm(
+			"Are you sure you want to delete this shipment?"
+		);
+		if (isConfirmed) {
+			try {
+				await axios.delete(`http://localhost:5000/api/history/${id}`);
+				toast.success("Shipment deleted successfully");
+				fetchShipments(); // Refresh the shipment list after deletion
+			} catch (error) {
+				console.error("Error deleting shipment:", error);
+				toast.error("Error deleting shipment");
 			}
-			return 0;
-		});
-
-		setShipments(sortedShipments);
+		}
 	};
-
-	function handleDelete(index) {
-		toast("this is delete button " + index);
-	}
 
 	return (
 		<>
@@ -85,13 +110,13 @@ export const Shipment = () => {
 				onClose={handleCloseDialog}
 				item={selectedShipment}
 				onAddShipment={handleAddShipment}
-				onSubmit={() => {}} // Empty function for now
+				onSubmit={() => {}}
 			/>
 
 			<DetailsModal
 				isOpen={isDetailsOpen}
 				onClose={handleCloseDetails}
-				shipment={selectedShipment} // Pass the selected shipment to the details modal
+				shipment={selectedShipment}
 			/>
 
 			<div className="container">
@@ -120,14 +145,16 @@ export const Shipment = () => {
 						<div className="main">
 							<div className="toolbar">
 								<div className="left">
-									<div className="search-bar">
-										<input type="text" placeholder="Search Here ..." />
-									</div>
 									<div className="filter">
-										<select value={sortOrder} onChange={handleSortChange}>
-											<option value="asc">ASC</option>
-											<option value="dsc">DSC</option>
-										</select>
+										<DatePicker
+											selected={startDate}
+											onChange={handleDateChange}
+											startDate={startDate}
+											endDate={endDate}
+											selectsRange
+											placeholderText="Filter by Date Range"
+											className="date-picker"
+										/>
 									</div>
 								</div>
 							</div>
@@ -144,13 +171,13 @@ export const Shipment = () => {
 										<thead>
 											<tr>
 												<th className="name">Shipment Date</th>
-												<th className="supplier">Shipped Recived</th>
+												<th className="supplier">Shipped Received</th>
 												<th className="stock">Number of Items</th>
 												<th className="action">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											{shipments.map((shipment, index) => (
+											{filteredShipments.map((shipment) => (
 												<tr key={shipment._id}>
 													<td className="name">
 														<div>
@@ -168,13 +195,13 @@ export const Shipment = () => {
 													<td className="action">
 														<button
 															className="btn"
-															onClick={() => handleOpenDetails(shipment)} // Handle details click
+															onClick={() => handleOpenDetails(shipment)}
 														>
 															Details
 														</button>
 														<button
 															className="warning-btn"
-															onClick={() => handleDelete(index)}
+															onClick={() => handleDelete(shipment._id)}
 														>
 															Delete
 														</button>
