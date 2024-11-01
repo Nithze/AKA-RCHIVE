@@ -353,13 +353,13 @@ export const Attendance = () => {
             case 'Present':
                 return '#52398e';
             case 'Absent':
-                return '#ff4d00';
+                return '#eba834';
             case 'Alpha':
                 return '#ff0000';
             case 0:
-                return '#222';
+                return '#1a1a1a';
             default:
-                return '#222';
+                return '#1a1a1a';
         }
     };
 
