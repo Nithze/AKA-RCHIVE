@@ -383,6 +383,11 @@ export const Attendance = () => {
     const handleMouseLeave = () => {
         setTooltip({ ...tooltip, visible: false });
     };
+    const convertMinutesToHours = (minutes) => {
+        const hours = Math.floor(minutes / 60);
+        const remainingMinutes = minutes % 60;
+        return `${hours}h ${remainingMinutes}m`;
+    };
 
     return (
         <>
@@ -425,6 +430,19 @@ export const Attendance = () => {
 
                             <div className="attendance-table">
                                 <table>
+                                    {/* <thead> */}
+                                    {/*     <tr> */}
+                                    {/*         <th>Name</th> */}
+                                    {/*         {Array.from({ length: daysInMonth }, (_, i) => ( */}
+                                    {/*             <th key={i}> */}
+                                    {/*                 <div className="date-day"> */}
+                                    {/*                     <span>{adjustedDaysOfWeek[i]}</span> */}
+                                    {/*                     <span>{i + 1}</span> */}
+                                    {/*                 </div> */}
+                                    {/*             </th> */}
+                                    {/*         ))} */}
+                                    {/*     </tr> */}
+                                    {/* </thead> */}
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -436,32 +454,62 @@ export const Attendance = () => {
                                                     </div>
                                                 </th>
                                             ))}
+                                            <th>Total Late Time</th> {/* Kolom baru untuk total late time */}
                                         </tr>
                                     </thead>
 
+
+                                    {/* <tbody> */}
+                                    {/*     {attendanceData.map((employee, index) => ( */}
+                                    {/*         <tr key={index}> */}
+                                    {/*             <td> */}
+                                    {/*                 {employee.employeeName} */}
+                                    {/*                 <div className="shift-info">{employee.shiftName} ({employee.shiftStart} - {employee.shiftEnd})</div> */}
+                                    {/*             </td> */}
+                                    {/*             {employee.attendance.map((att, i) => { */}
+                                    {/*                 const { color } = getStatusInfo(att); */}
+                                    {/*                 return ( */}
+                                    {/*                     <td key={i}> */}
+                                    {/*                         <div */}
+                                    {/*                             className="attendance-box" */}
+                                    {/*                             style={{ backgroundColor: color }} */}
+                                    {/*                             onMouseEnter={(e) => handleMouseEnter(e, att)} */}
+                                    {/*                             onMouseLeave={handleMouseLeave} */}
+                                    {/*                         ></div> */}
+                                    {/*                     </td> */}
+                                    {/*                 ); */}
+                                    {/*             })} */}
+                                    {/*         </tr> */}
+                                    {/*     ))} */}
+                                    {/* </tbody> */}
                                     <tbody>
-                                        {attendanceData.map((employee, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    {employee.employeeName}
-                                                    <div className="shift-info">{employee.shiftName} ({employee.shiftStart} - {employee.shiftEnd})</div>
-                                                </td>
-                                                {employee.attendance.map((att, i) => {
-                                                    const { color } = getStatusInfo(att);
-                                                    return (
-                                                        <td key={i}>
-                                                            <div
-                                                                className="attendance-box"
-                                                                style={{ backgroundColor: color }}
-                                                                onMouseEnter={(e) => handleMouseEnter(e, att)}
-                                                                onMouseLeave={handleMouseLeave}
-                                                            ></div>
-                                                        </td>
-                                                    );
-                                                })}
-                                            </tr>
-                                        ))}
+                                        {attendanceData.map((employee, index) => {
+                                            const totalLateTime = employee.attendance.reduce((acc, att) => acc + att.lateTime, 0);
+                                            return (
+                                                <tr key={index}>
+                                                    <td>
+                                                        {employee.employeeName}
+                                                        <div className="shift-info">{employee.shiftName} ({employee.shiftStart} - {employee.shiftEnd})</div>
+                                                    </td>
+                                                    {employee.attendance.map((att, i) => {
+                                                        const { color } = getStatusInfo(att);
+                                                        return (
+                                                            <td key={i}>
+                                                                <div
+                                                                    className="attendance-box"
+                                                                    style={{ backgroundColor: color }}
+                                                                    onMouseEnter={(e) => handleMouseEnter(e, att)}
+                                                                    onMouseLeave={handleMouseLeave}
+                                                                ></div>
+                                                            </td>
+                                                        );
+                                                    })}
+                                                    <td>{convertMinutesToHours(totalLateTime)}</td> {/* Menampilkan total late time dalam format jam dan menit */}
+                                                </tr>
+                                            );
+                                        })}
                                     </tbody>
+
                                 </table>
                                 {tooltip.visible && (
                                     <div className="tooltip" style={{ left: tooltip.x + 10, top: tooltip.y - 30 }}>
