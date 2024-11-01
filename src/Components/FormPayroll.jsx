@@ -94,7 +94,7 @@ const FormPayroll = ({ isOpen, onClose }) => {
                 ease: "power2.out"
             });
         } else {
-            toast.error("You have reached the limit of 4 bonuses!"); // Show toast notification
+            toast.error("You have reached the limit of 4 bonuses!");
         }
     };
 
@@ -155,11 +155,16 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                                 placeholder='300000'
                                                 value={deduction.amount}
                                                 onChange={(e) => {
-                                                    const newDeductions = [...deductions];
-                                                    newDeductions[index].amount = e.target.value;
-                                                    setDeductions(newDeductions);
+                                                    const value = e.target.value;
+                                                    // Hanya izinkan angka
+                                                    if (/^\d*$/.test(value)) {
+                                                        const newDeductions = [...deductions];
+                                                        newDeductions[index].amount = value;
+                                                        setDeductions(newDeductions);
+                                                    }
                                                 }}
                                             />
+
                                         </div>
                                     ))}
                                 </div>
@@ -205,16 +210,31 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                                     setBonuses(newBonuses);
                                                 }}
                                             />
+                                            {/* <input className='inputx' */}
+                                            {/*     type="number" */}
+                                            {/*     placeholder='300000' */}
+                                            {/*     value={bonus.amount} */}
+                                            {/*     onChange={(e) => { */}
+                                            {/*         const newBonuses = [...bonuses]; */}
+                                            {/*         newBonuses[index].amount = e.target.value; */}
+                                            {/*         setBonuses(newBonuses); */}
+                                            {/*     }} */}
+                                            {/* /> */}
                                             <input className='inputx'
                                                 type="text"
                                                 placeholder='300000'
                                                 value={bonus.amount}
                                                 onChange={(e) => {
-                                                    const newBonuses = [...bonuses];
-                                                    newBonuses[index].amount = e.target.value;
-                                                    setBonuses(newBonuses);
+                                                    const value = e.target.value;
+                                                    // Hanya izinkan angka
+                                                    if (/^\d*$/.test(value)) {
+                                                        const newBonuses = [...bonuses];
+                                                        newBonuses[index].amount = value;
+                                                        setBonuses(newBonuses);
+                                                    }
                                                 }}
                                             />
+
                                         </div>
                                     ))}
                                 </div>
