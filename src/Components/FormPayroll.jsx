@@ -1,16 +1,16 @@
 import './FormPayroll.scss';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { toast } from 'sonner'; // Import Sonner toast
+import { toast } from 'sonner';
 
 const FormPayroll = ({ isOpen, onClose }) => {
     const overlayRef = useRef(null);
     const dialogRef = useRef(null);
-    const [deductions, setDeductions] = useState([{ title: '', amount: '' }]);
+    const [deductions, setDeductions] = useState([{ title: 'deductionPerAlpha', amount: '' }]);
     const [bonuses, setBonuses] = useState([{ title: '', amount: '' }]);
     const deductionsRef = useRef(null);
     const bonusesRef = useRef(null);
-    const [employees, setEmployees] = useState([]); // Add state for employees
+    const [employees, setEmployees] = useState([]);
 
     useEffect(() => {
         if (isOpen) {
@@ -23,12 +23,11 @@ const FormPayroll = ({ isOpen, onClose }) => {
     }, [isOpen]);
 
     useEffect(() => {
-        // Fetch employees from backend
         const fetchEmployees = async () => {
             try {
                 const response = await fetch('http://localhost:5000/api/employees');
                 const data = await response.json();
-                setEmployees(data); // Store data in employees state
+                setEmployees(data);
             } catch (error) {
                 console.error("Error fetching employees:", error);
                 toast.error("Failed to fetch employees!");
@@ -62,7 +61,7 @@ const FormPayroll = ({ isOpen, onClose }) => {
                 ease: "power2.out"
             });
         } else {
-            toast.error("You have reached the limit of 4 deductions!"); // Show toast notification
+            toast.error("You have reached the limit of 4 deductions!");
         }
     };
 
@@ -133,30 +132,27 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                         </option>
                                     ))}
                                 </select>
-
                             </div>
+
                             <div className="form-group">
                                 <label>Potongan<span className='warning-text'>*</span></label>
                                 <div className="multi-input" ref={deductionsRef}>
                                     {deductions.map((deduction, index) => (
                                         <div className="deduction-item" key={index}>
-                                            <input className='inputz'
+                                            <input
+                                                className='inputz'
                                                 type="text"
-                                                placeholder='Bonus Title'
+                                                placeholder='Deduction Title'
                                                 value={deduction.title}
-                                                onChange={(e) => {
-                                                    const newDeductions = [...deductions];
-                                                    newDeductions[index].title = e.target.value;
-                                                    setDeductions(newDeductions);
-                                                }}
+                                                readOnly={index === 0} // Make the first deduction title read-only
                                             />
-                                            <input className='inputx'
+                                            <input
+                                                className='inputx'
                                                 type="text"
                                                 placeholder='300000'
                                                 value={deduction.amount}
                                                 onChange={(e) => {
                                                     const value = e.target.value;
-                                                    // Hanya izinkan angka
                                                     if (/^\d*$/.test(value)) {
                                                         const newDeductions = [...deductions];
                                                         newDeductions[index].amount = value;
@@ -164,7 +160,6 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                                     }
                                                 }}
                                             />
-
                                         </div>
                                     ))}
                                 </div>
@@ -210,23 +205,12 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                                     setBonuses(newBonuses);
                                                 }}
                                             />
-                                            {/* <input className='inputx' */}
-                                            {/*     type="number" */}
-                                            {/*     placeholder='300000' */}
-                                            {/*     value={bonus.amount} */}
-                                            {/*     onChange={(e) => { */}
-                                            {/*         const newBonuses = [...bonuses]; */}
-                                            {/*         newBonuses[index].amount = e.target.value; */}
-                                            {/*         setBonuses(newBonuses); */}
-                                            {/*     }} */}
-                                            {/* /> */}
                                             <input className='inputx'
                                                 type="text"
                                                 placeholder='300000'
                                                 value={bonus.amount}
                                                 onChange={(e) => {
                                                     const value = e.target.value;
-                                                    // Hanya izinkan angka
                                                     if (/^\d*$/.test(value)) {
                                                         const newBonuses = [...bonuses];
                                                         newBonuses[index].amount = value;
@@ -234,7 +218,6 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                                     }
                                                 }}
                                             />
-
                                         </div>
                                     ))}
                                 </div>
