@@ -242,9 +242,9 @@ export const Request = () => {
                                 <div className="table-container">
                                     <table>
                                         <colgroup>
-                                            <col style={{ width: '15%' }} />
                                             <col style={{ width: '10%' }} />
-                                            <col style={{ width: '30%' }} />
+                                            <col style={{ width: '10%' }} />
+                                            <col style={{ width: '40%' }} />
                                             <col style={{ width: '15%' }} />
                                         </colgroup>
                                         <thead>
@@ -269,7 +269,7 @@ export const Request = () => {
                                                         </td>
                                                         <td className="action">
                                                             {attendance.status === 'Absent' ? (
-                                                                <i className='bx bx-check' style={{ color: '#52398e' }}></i>
+                                                                <p>Approved <i className='bx bx-check' style={{ color: '#52398e' }}></i></p>
                                                             ) : (
                                                                 <>
                                                                     <button className="btn" onClick={() => handleApprove(attendance.attendanceId)}>Approve</button>
