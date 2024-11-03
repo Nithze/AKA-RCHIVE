@@ -292,9 +292,45 @@ const FormPayroll = ({ isOpen, onClose }) => {
         });
     };
 
+    // const handleSave = async () => {
+    //     const [year, month] = yearMonth.split('-');
+    //     const formattedDeductions = deductions.map(d => ({ description: d.title, amount: parseInt(d.amount) || 0 }));
+    //     const formattedBonuses = bonuses.map(b => ({ name: b.title, amount: parseInt(b.amount) || 0 }));
+    //
+    //     const payload = {
+    //         year: parseInt(year),
+    //         month: parseInt(month),
+    //         employeeId: selectedEmployee,
+    //         deductions: formattedDeductions,
+    //         bonuses: formattedBonuses,
+    //         deductionPerAlpha: parseInt(deductions[0].amount) || 0,
+    //     };
+    //
+    //     try {
+    //         const response = await fetch('http://localhost:5000/api/payroll/payroll', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify(payload),
+    //         });
+    //
+    //         if (response.ok) {
+    //             toast.success("Payroll entry saved successfully!");
+    //             onClose();
+    //         } else {
+    //             toast.error("Failed to save payroll entry!");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error saving payroll entry:", error);
+    //         toast.error("Failed to save payroll entry!");
+    //     }
+    // };
     const handleSave = async () => {
         const [year, month] = yearMonth.split('-');
-        const formattedDeductions = deductions.map(d => ({ description: d.title, amount: parseInt(d.amount) || 0 }));
+
+        // Memfilter data deduction agar tidak ada "deductionPerAlpha" duplikat
+        const filteredDeductions = deductions.filter(d => d.title !== 'deductionPerAlpha');
+        const formattedDeductions = filteredDeductions.map(d => ({ description: d.title, amount: parseInt(d.amount) || 0 }));
+
         const formattedBonuses = bonuses.map(b => ({ name: b.title, amount: parseInt(b.amount) || 0 }));
 
         const payload = {
@@ -324,6 +360,7 @@ const FormPayroll = ({ isOpen, onClose }) => {
             toast.error("Failed to save payroll entry!");
         }
     };
+
 
     return (
         <div className="dialog-overlay" onClick={handleClose} ref={overlayRef} style={{ opacity: 0 }}>
@@ -356,7 +393,7 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                                 type="text"
                                                 placeholder='Deduction Title'
                                                 value={deduction.title}
-                                                readOnly={index === 0} 
+                                                readOnly={index === 0}
                                             />
                                             <input
                                                 className='inputx'
