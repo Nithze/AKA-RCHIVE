@@ -10,21 +10,6 @@ export const Payroll = () => {
     const handleOpenDialog = () => setDialogOpen(true);
     const handleCloseDialog = () => setDialogOpen(false);
 
-    // Mengambil data payroll dari API
-    // useEffect(() => {
-    //     const fetchPayrolls = async () => {
-    //         try {
-    //             const response = await fetch('http://localhost:5000/api/payroll/payrolls');
-    //             const data = await response.json();
-    //             setPayrolls(data.payrolls); // Simpan data payroll di state
-    //         } catch (error) {
-    //             console.error("Error fetching payrolls:", error);
-    //         }
-    //     };
-    //     fetchPayrolls();
-    // }, []);
-    // Mengambil data payroll dari API
-    // useEffect(() => {
     const fetchPayrolls = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/payroll/payrolls');
