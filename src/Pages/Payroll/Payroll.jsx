@@ -11,18 +11,36 @@ export const Payroll = () => {
     const handleCloseDialog = () => setDialogOpen(false);
 
     // Mengambil data payroll dari API
+    // useEffect(() => {
+    //     const fetchPayrolls = async () => {
+    //         try {
+    //             const response = await fetch('http://localhost:5000/api/payroll/payrolls');
+    //             const data = await response.json();
+    //             setPayrolls(data.payrolls); // Simpan data payroll di state
+    //         } catch (error) {
+    //             console.error("Error fetching payrolls:", error);
+    //         }
+    //     };
+    //     fetchPayrolls();
+    // }, []);
+    // Mengambil data payroll dari API
     useEffect(() => {
         const fetchPayrolls = async () => {
             try {
                 const response = await fetch('http://localhost:5000/api/payroll/payrolls');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const data = await response.json();
-                setPayrolls(data.payrolls); // Simpan data payroll di state
+                setPayrolls(data.payrolls || []); // Simpan data payroll di state, atau set ke array kosong
             } catch (error) {
                 console.error("Error fetching payrolls:", error);
+                setPayrolls([]); // Atur payrolls ke array kosong jika terjadi error
             }
         };
         fetchPayrolls();
     }, []);
+
 
     return (
         <>

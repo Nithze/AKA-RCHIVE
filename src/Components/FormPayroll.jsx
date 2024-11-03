@@ -694,6 +694,16 @@ const FormPayroll = ({ isOpen, onClose }) => {
                                     placeholder="YYYY-M"
                                     value={yearMonth}
                                     onChange={(e) => setYearMonth(e.target.value)}
+                                    onInput={(e) => {
+                                        let value = e.target.value.replace(/[^0-9]/g, '');
+                                        if (value.length >= 6) {
+                                            value = value.slice(0, 4) + '-' + value.slice(4, 6);
+                                        } else if (value.length >= 4) {
+                                            value = value.slice(0, 4) + '-' + value.slice(4);
+                                        }
+                                        e.target.value = value;
+                                    }}
+
                                     required
                                 />
                             </div>

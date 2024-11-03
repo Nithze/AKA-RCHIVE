@@ -244,6 +244,7 @@ export const Request = () => {
                                         <colgroup>
                                             <col style={{ width: '10%' }} />
                                             <col style={{ width: '10%' }} />
+                                            <col style={{ width: '10%' }} />
                                             <col style={{ width: '40%' }} />
                                             <col style={{ width: '15%' }} />
                                         </colgroup>
@@ -251,6 +252,7 @@ export const Request = () => {
                                             <tr>
                                                 <th className="name">Name</th>
                                                 <th className="role">Role</th>
+                                                <th className="date">Date</th>
                                                 <th className="shift">Reason</th>
                                                 <th className="action">Action</th>
                                             </tr>
@@ -264,6 +266,7 @@ export const Request = () => {
                                                             <div className="phone-number">{request.phoneNumber}</div>
                                                         </td>
                                                         <td className="role"><span className="role-chip">{request.role}</span></td>
+                                                        <td className="role"><span className="date">{attendance.date}</span></td>
                                                         <td className="reason">
                                                             <div>{attendance.reason}</div>
                                                         </td>
