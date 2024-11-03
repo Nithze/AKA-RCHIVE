@@ -447,7 +447,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { toast } from 'sonner';
 
-const FormPayroll = ({ isOpen, onClose }) => {
+const FormPayroll = ({ isOpen, onClose, onSuccess }) => {
     const overlayRef = useRef(null);
     const dialogRef = useRef(null);
     const [deductions, setDeductions] = useState([{ title: 'deductionPerAlpha', amount: '' }]);
@@ -519,7 +519,8 @@ const FormPayroll = ({ isOpen, onClose }) => {
 
             if (response.ok) {
                 toast.success("Payroll entry created successfully!");
-                onClose();
+                onSuccess();
+                handleClose();
             } else {
                 toast.error("Failed to create payroll entry.");
             }
