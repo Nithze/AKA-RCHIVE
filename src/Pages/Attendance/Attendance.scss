@@ -1,3 +1,18 @@
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(9px);
+  color: #777;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  z-index: 1000;
+  white-space: pre-line;
+  pointer-events: none;
+  width: fit-content;
+  transition: opacity 0.2s ease;
+}
+
 .attendance-table {
   width: 100%;
   border: 1px solid #27272A;
@@ -11,11 +26,12 @@
 
     th {
       text-align: center;
-      padding: 3px 5px; 
+      padding: 3px 5px;
     }
+
     td {
       text-align: center;
-      padding: 3px 5px; 
+      padding: 3px 5px;
       border-top: 1px solid #27272a;
     }
 
@@ -33,7 +49,7 @@
         color: #555;
 
         &:first-child {
-          margin-bottom: 1px; 
+          margin-bottom: 1px;
         }
       }
     }
@@ -41,7 +57,7 @@
     th:first-child,
     td:first-child {
       height: 70px;
-      width: 350px; 
+      width: 350px;
       font-size: 16px;
       text-align: left;
       padding-left: 10px;
@@ -49,22 +65,21 @@
 
     .attendance-box {
       margin: auto;
-      width: 20px; 
-      height: 20px; 
-
+      width: 23px;
+      height: 23px;
       &.status-0 {
         background-color: #ff0000;
       }
 
       &.status-1,
       &.status-2 {
-        background-color: #222; 
+        background-color: #222;
       }
     }
 
     .shift-info {
       font-size: 0.9rem;
-      color: #666; 
+      color: #666;
     }
   }
 }
