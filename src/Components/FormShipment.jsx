@@ -193,10 +193,31 @@ const FormEmployee = ({ isOpen, onClose, onAddShipment }) => {
 	};
 
 	const handleSave = async () => {
+		// Aggregate quantities for duplicate items
+		const aggregatedDeductions = deductions.reduce((acc, curr) => {
+			const existingIndex = acc.findIndex(
+				(item) =>
+					item.item_name === curr.item_name && item.supplier === curr.supplier
+			);
+
+			if (existingIndex > -1) {
+				// Add quantity if item already exists
+				acc[existingIndex].quantity += parseInt(curr.quantity, 10);
+			} else {
+				// Otherwise, push the item with parsed quantity
+				acc.push({
+					...curr,
+					quantity: parseInt(curr.quantity, 10), // Ensure quantity is a number
+				});
+			}
+
+			return acc;
+		}, []);
+
 		const newShipment = {
 			user_id: userId,
 			date: new Date().toISOString().split("T")[0],
-			items: deductions,
+			items: aggregatedDeductions,
 		};
 
 		try {

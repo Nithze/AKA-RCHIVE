@@ -24,15 +24,17 @@ export const Inventory = () => {
 	};
 
 	// Fetch items from the API
+	const fetchItems = async () => {
+		try {
+			const response = await axios.get("http://localhost:5000/api/item/");
+			setItems(response.data.items);
+		} catch (error) {
+			console.error("Error fetching items:", error);
+		}
+	};
+
+	// Fetch items on component mount
 	useEffect(() => {
-		const fetchItems = async () => {
-			try {
-				const response = await axios.get("http://localhost:5000/api/item/");
-				setItems(response.data.items);
-			} catch (error) {
-				console.error("Error fetching items:", error);
-			}
-		};
 		fetchItems();
 	}, []);
 
@@ -46,8 +48,7 @@ export const Inventory = () => {
 				.delete(`http://localhost:5000/api/item/${itemId}`)
 				.then((response) => {
 					toast.success("Item berhasil dihapus!");
-					const updatedItems = items.filter((_, idx) => idx !== index);
-					setItems(updatedItems);
+					fetchItems(); // Refetch items after deletion
 				})
 				.catch((error) => {
 					toast.error("Something went wrong !");
@@ -56,20 +57,31 @@ export const Inventory = () => {
 		}
 	};
 
+	// Sort items with a three-click system for sorting, where the third click clears the sorting
 	const sortItems = (field) => {
-		const order = sortOrder === "asc" ? "dsc" : "asc";
-		setSortField(field);
-		setSortOrder(order);
+		if (sortField === field) {
+			const newOrder =
+				sortOrder === "asc" ? "desc" : sortOrder === "desc" ? "none" : "asc";
+			setSortOrder(newOrder);
+			if (newOrder === "none") {
+				setSortField(""); // Clear sorting if clicked the third time
+				setItems([...items]); // Reset to initial order
+				return;
+			}
+		} else {
+			setSortField(field);
+			setSortOrder("asc");
+		}
 
 		const sortedItems = [...items].sort((a, b) => {
 			if (field === "item_name" || field === "supplier") {
-				return order === "asc"
+				return sortOrder === "asc"
 					? a[field].localeCompare(b[field])
 					: b[field].localeCompare(a[field]);
 			} else if (field === "stock") {
-				return order === "asc" ? b.stock - a.stock : a.stock - b.stock;
+				return sortOrder === "asc" ? b.stock - a.stock : a.stock - b.stock;
 			} else if (field === "reorder_level") {
-				return order === "asc"
+				return sortOrder === "asc"
 					? a.reorder_level - b.reorder_level
 					: b.reorder_level - a.reorder_level;
 			}
@@ -84,12 +96,9 @@ export const Inventory = () => {
 				`http://localhost:5000/api/item/${updatedItem._id}`,
 				updatedItem
 			);
-			const updatedItems = items.map((item) =>
-				item._id === updatedItem._id ? updatedItem : item
-			);
-			setItems(updatedItems);
+			toast.success("Item berhasil diupdate!");
 			handleCloseDialog();
-			toast.success("Item berhasil dihapus!");
+			fetchItems(); // Refetch items after updating
 		} catch (error) {
 			toast.error("Something went wrong !");
 			console.error("Error updating item:", error);
@@ -157,32 +166,64 @@ export const Inventory = () => {
 										</colgroup>
 										<thead>
 											<tr>
-												<th className="name">
+												<th
+													className={`name ${
+														sortField === "item_name" ? "sorted" : ""
+													}`}
+												>
 													<button onClick={() => sortItems("item_name")}>
 														Item Name{" "}
 														{sortField === "item_name" &&
-															(sortOrder === "asc" ? "▲" : "▼")}
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
 													</button>
 												</th>
-												<th className="stock">
+												<th
+													className={`stock ${
+														sortField === "stock" ? "sorted" : ""
+													}`}
+												>
 													<button onClick={() => sortItems("stock")}>
 														Stock{" "}
 														{sortField === "stock" &&
-															(sortOrder === "asc" ? "▲" : "▼")}
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
 													</button>
 												</th>
-												<th className="supplier">
+												<th
+													className={`supplier ${
+														sortField === "supplier" ? "sorted" : ""
+													}`}
+												>
 													<button onClick={() => sortItems("supplier")}>
 														Supplier{" "}
 														{sortField === "supplier" &&
-															(sortOrder === "asc" ? "▲" : "▼")}
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
 													</button>
 												</th>
-												<th className="reorder">
+												<th
+													className={`reorder ${
+														sortField === "reorder_level" ? "sorted" : ""
+													}`}
+												>
 													<button onClick={() => sortItems("reorder_level")}>
 														Re-order Status{" "}
 														{sortField === "reorder_level" &&
-															(sortOrder === "asc" ? "▲" : "▼")}
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
 													</button>
 												</th>
 												<th className="action">Action</th>
@@ -200,7 +241,15 @@ export const Inventory = () => {
 													<td className="supplier">
 														<span className="role-chip">{item.supplier}</span>
 													</td>
-													<td className="reorder">
+													<td
+														className={`reorder ${
+															item.reorder_level === 1
+																? "immediate"
+																: item.reorder_level === 2
+																? "caution"
+																: "plentiful"
+														}`}
+													>
 														{item.reorder_level === 1
 															? "Re-order Immediately"
 															: item.reorder_level === 2
@@ -215,7 +264,7 @@ export const Inventory = () => {
 															Edit
 														</button>
 														<button
-															className="warning-btn"
+															className="btn del"
 															onClick={() => handleDelete(index)}
 														>
 															Delete

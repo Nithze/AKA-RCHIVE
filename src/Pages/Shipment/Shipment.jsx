@@ -14,7 +14,7 @@ export const Shipment = () => {
 	const [shipments, setShipments] = useState([]);
 	const [filteredShipments, setFilteredShipments] = useState([]);
 	const [selectedShipment, setSelectedShipment] = useState(null);
-	const [searchQuery, setSearchQuery] = useState("");
+	const [searchQuery] = useState("");
 	const [startDate, setStartDate] = useState(null);
 	const [endDate, setEndDate] = useState(null);
 
@@ -55,12 +55,6 @@ export const Shipment = () => {
 	const handleAddShipment = async () => {
 		await fetchShipments();
 		setDialogOpen(false);
-	};
-
-	const handleSearch = (e) => {
-		const query = e.target.value.toLowerCase();
-		setSearchQuery(query);
-		filterData(query, startDate, endDate);
 	};
 
 	const handleDateChange = (dates) => {
