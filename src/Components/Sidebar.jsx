@@ -86,6 +86,13 @@ const Sidebar = () => {
 						</li>
 
 						<li className="nav-link">
+							<a href="/sales">
+								<i className="bx bx-export icon"></i>
+								<span className="text nav-text">Sales</span>
+							</a>
+						</li>
+
+						<li className="nav-link">
 							<a href="/inventory">
 								<i className="bx bx-package icon"></i>
 								<span className="text nav-text">Inventory</span>

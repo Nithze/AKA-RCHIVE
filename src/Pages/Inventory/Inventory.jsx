@@ -46,7 +46,7 @@ export const Inventory = () => {
 		if (confirmDelete) {
 			axios
 				.delete(`http://localhost:5000/api/item/${itemId}`)
-				.then((response) => {
+				.then(() => {
 					toast.success("Item berhasil dihapus!");
 					fetchItems(); // Refetch items after deletion
 				})

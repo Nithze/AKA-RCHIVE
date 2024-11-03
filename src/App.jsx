@@ -13,6 +13,7 @@ import BlankPage from "./Components/BlankPage.jsx";
 import { ThemeProvider } from "./Services/ThemeContext.jsx";
 import Inventory from "./Pages/Inventory/Inventory.jsx";
 import Shipment from "./Pages/Shipment/Shipment.jsx";
+import Sales from "./Pages/Sales/Sales.jsx";
 import ProtectedRoute from "./Components/ProtectedRoute.jsx"; // Import ProtectedRoute
 import { Toaster } from "sonner";
 
@@ -44,6 +45,7 @@ function App() {
 						<Route path="/request" element={<Request />} />
 						<Route path="/inventory" element={<Inventory />} />
 						<Route path="/shipment" element={<Shipment />} />
+						<Route path="/sales" element={<Sales />} />
 					</Route>
 				</Routes>
 			</Router>
