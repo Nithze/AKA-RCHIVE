@@ -23,8 +23,6 @@ export const Payroll = () => {
             setPayrolls([]); // Atur payrolls ke array kosong jika terjadi error
         }
     };
-    // fetchPayrolls();
-    // }, []);
     useEffect(() => {
         fetchPayrolls();
     }, []);
