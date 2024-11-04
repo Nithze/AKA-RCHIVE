@@ -2,6 +2,7 @@ import './Payroll.scss';
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../../Components/Sidebar.jsx';
 import FormPayroll from '../../Components/FormPayroll';
+import { toast } from 'sonner'; // Importing toast from Sonner
 
 export const Payroll = () => {
     const [isDialogOpen, setDialogOpen] = useState(false);
@@ -23,10 +24,34 @@ export const Payroll = () => {
             setPayrolls([]); // Atur payrolls ke array kosong jika terjadi error
         }
     };
+
     useEffect(() => {
         fetchPayrolls();
     }, []);
 
+    const handleDelete = async (id) => {
+        if (window.confirm("Are you sure you want to delete this payroll entry?")) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/payroll/payroll/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Fetch payrolls again to update the state
+                fetchPayrolls(); 
+
+                // Show success toast
+                toast.success("Payroll entry deleted successfully!");
+            } catch (error) {
+                console.error("Error deleting payroll:", error);
+                // Show error toast
+                toast.error("Failed to delete payroll entry.");
+            }
+        }
+    };
 
     return (
         <>
@@ -96,7 +121,7 @@ export const Payroll = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {payrolls.map((payroll, index) => (
+                                            {payrolls.map((payroll) => (
                                                 <tr key={payroll._id}>
                                                     <td className="name">
                                                         <div>{payroll.employee.fullName}</div>
@@ -112,9 +137,8 @@ export const Payroll = () => {
                                                         <div>{payroll.netSalary.toLocaleString()}</div>
                                                     </td>
                                                     <td className="action">
-                                                        {/* <button className="btn" onClick={() => handleEdit(index)}>Detail</button> */}
-                                                        <button className="btn" onClick={() => handleEdit(index)}>Edit</button>
-                                                        <button className="warning-btn" onClick={() => handleDelete(index)}>Delete</button>
+                                                        <button className="btn" onClick={() => handleEdit(payroll._id)}>Detail</button>
+                                                        <button className="warning-btn" onClick={() => handleDelete(payroll._id)}>Delete</button>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -128,11 +152,6 @@ export const Payroll = () => {
             </div>
         </>
     );
-
-
-    function handleDelete(index) {
-        console.log(`Delete payroll at index ${index}`);
-    }
 };
 
 export default Payroll;

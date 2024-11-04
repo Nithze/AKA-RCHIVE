@@ -495,40 +495,80 @@ const FormPayroll = ({ isOpen, onClose, onSuccess }) => {
         });
     };
 
+    // const handleSubmit = async () => {
+    //     try {
+    //         const alphaDeduction = deductions.find(deduction => deduction.title === 'deductionPerAlpha');
+    //         const otherDeductions = deductions.filter(deduction => deduction.title !== 'deductionPerAlpha');
+    //
+    //         const bodyData = {
+    //             year: parseInt(yearMonth.split('-')[0]),
+    //             month: parseInt(yearMonth.split('-')[1]),
+    //             employeeId: employeeId,
+    //             deductions: [
+    //                 ...otherDeductions.map(({ title, amount }) => ({ description: title, amount: parseInt(amount) })),
+    //             ],
+    //             bonuses: bonuses.map(({ title, amount }) => ({ name: title, amount: parseInt(amount) })),
+    //             deductionPerAlpha: alphaDeduction ? parseInt(alphaDeduction.amount) : 0
+    //         };
+    //
+    //         const response = await fetch('http://localhost:5000/api/payroll/payroll', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify(bodyData)
+    //         });
+    //
+    //         if (response.ok) {
+    //             toast.success("Payroll entry created successfully!");
+    //             onSuccess();
+    //             handleClose();
+    //         } else {
+    //             toast.error("Failed to create payroll entry.");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error submitting payroll:", error);
+    //         toast.error("Error submitting payroll.");
+    //     }
+    // };
     const handleSubmit = async () => {
-        try {
-            const alphaDeduction = deductions.find(deduction => deduction.title === 'deductionPerAlpha');
-            const otherDeductions = deductions.filter(deduction => deduction.title !== 'deductionPerAlpha');
+    try {
+        const alphaDeduction = deductions.find(deduction => deduction.title === 'deductionPerAlpha');
+        const otherDeductions = deductions.filter(deduction => deduction.title !== 'deductionPerAlpha');
 
-            const bodyData = {
-                year: parseInt(yearMonth.split('-')[0]),
-                month: parseInt(yearMonth.split('-')[1]),
-                employeeId: employeeId,
-                deductions: [
-                    ...otherDeductions.map(({ title, amount }) => ({ description: title, amount: parseInt(amount) })),
-                ],
-                bonuses: bonuses.map(({ title, amount }) => ({ name: title, amount: parseInt(amount) })),
-                deductionPerAlpha: alphaDeduction ? parseInt(alphaDeduction.amount) : 0
-            };
+        const bodyData = {
+            year: parseInt(yearMonth.split('-')[0]),
+            month: parseInt(yearMonth.split('-')[1]),
+            employeeId: employeeId,
+            deductions: [
+                ...otherDeductions.map(({ title, amount }) => ({ description: title, amount: parseInt(amount) })),
+            ],
+            bonuses: bonuses.map(({ title, amount }) => ({ name: title, amount: parseInt(amount) })),
+            deductionPerAlpha: alphaDeduction ? parseInt(alphaDeduction.amount) : 0
+        };
 
-            const response = await fetch('http://localhost:5000/api/payroll/payroll', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(bodyData)
-            });
+        const response = await fetch('http://localhost:5000/api/payroll/payroll', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bodyData)
+        });
 
-            if (response.ok) {
-                toast.success("Payroll entry created successfully!");
-                onSuccess();
-                handleClose();
-            } else {
-                toast.error("Failed to create payroll entry.");
-            }
-        } catch (error) {
-            console.error("Error submitting payroll:", error);
-            toast.error("Error submitting payroll.");
+        if (response.ok) {
+            toast.success("Payroll entry created successfully!");
+            // Kosongkan form setelah submit
+            setDeductions([{ title: 'deductionPerAlpha', amount: '' }]);
+            setBonuses([{ title: '', amount: '' }]);
+            setEmployeeId('');
+            setYearMonth('');
+            onSuccess();
+            handleClose();
+        } else {
+            toast.error("Failed to create payroll entry.");
         }
-    };
+    } catch (error) {
+        console.error("Error submitting payroll:", error);
+        toast.error("Error submitting payroll.");
+    }
+};
+
 
     // const addDeduction = () => {
     //     if (deductions.length < 4) {
