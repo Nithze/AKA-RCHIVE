@@ -240,7 +240,7 @@ export const Request = () => {
                                 <div className="right">
                                     <div className="alert">
                                         <i className='bx bx-error'></i>
-                                        <a href='/dashboard'>Salary distribution for the previous period has not been distributed. Towards salary distribution</a>
+                                        <a href='#'>Payroll data can only be added and deleted</a>
                                     </div>
                                 </div>
                             </div>

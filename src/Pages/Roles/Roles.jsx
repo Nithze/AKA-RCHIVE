@@ -279,7 +279,7 @@ const Roles = () => {
                                 <div className="right">
                                     <div className="alert">
                                         <i className='bx bx-error'></i>
-                                        <a href='/dashboard'>Salary distribution for the previous period has not been distributed. towards salary distribution</a>
+                                        <a href='#'>Role and salary data will affect employees directly</a>
                                     </div>
                                 </div>
                             </div>
