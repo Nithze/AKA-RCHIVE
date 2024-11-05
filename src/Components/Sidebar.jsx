@@ -1,11 +1,19 @@
 import { useTheme } from "../Services/ThemeContext.jsx";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Sidebar.scss";
 
 const Sidebar = () => {
 	const { darkMode, setDarkMode } = useTheme(); // Ambil tema
+	const navigate = useNavigate(); // Initialize navigate
 
 	const toggleTheme = () => {
 		setDarkMode((prev) => !prev);
+	};
+
+	const handleLogout = () => {
+		// Remove token from localStorage
+		localStorage.removeItem("token"); // Replace "token" with your actual token key if different
+		navigate("/"); // Redirect to the login page
 	};
 
 	return (
@@ -78,7 +86,14 @@ const Sidebar = () => {
 						</li>
 
 						<li className="nav-link">
-							<a href="/Inventory">
+							<a href="/sales">
+								<i className="bx bx-export icon"></i>
+								<span className="text nav-text">Sales</span>
+							</a>
+						</li>
+
+						<li className="nav-link">
+							<a href="/inventory">
 								<i className="bx bx-package icon"></i>
 								<span className="text nav-text">Inventory</span>
 							</a>
@@ -88,7 +103,9 @@ const Sidebar = () => {
 
 				<div className="bottom-content">
 					<li>
-						<a href="#">
+						<a onClick={handleLogout}>
+							{" "}
+							{/* Call handleLogout on click */}
 							<i className="bx bx-log-out icon"></i>
 							<span className="text nav-text">Logout</span>
 						</a>

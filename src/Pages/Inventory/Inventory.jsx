@@ -8,8 +8,10 @@ import FormItem from "../../Components/FormItem.jsx";
 export const Inventory = () => {
 	const [isDialogOpen, setDialogOpen] = useState(false);
 	const [items, setItems] = useState([]);
-	const [selectedItem, setSelectedItem] = useState(null); // State to store the selected item for editing
+	const [selectedItem, setSelectedItem] = useState(null);
+	const [sortField, setSortField] = useState("");
 	const [sortOrder, setSortOrder] = useState("asc");
+	const [searchQuery, setSearchQuery] = useState(""); // State for search input
 
 	const handleOpenDialog = (item) => {
 		setSelectedItem(item);
@@ -18,93 +20,105 @@ export const Inventory = () => {
 
 	const handleCloseDialog = () => {
 		setDialogOpen(false);
-		setSelectedItem(null); // Clear the selected item when closing
+		setSelectedItem(null);
 	};
 
 	// Fetch items from the API
-	useEffect(() => {
-		const fetchItems = async () => {
-			try {
-				const response = await axios.get("http://localhost:5000/api/item/");
-				setItems(response.data.items);
-			} catch (error) {
-				console.error("Error fetching items:", error);
-			}
-		};
+	const fetchItems = async () => {
+		try {
+			const response = await axios.get("http://localhost:5000/api/item/");
+			setItems(response.data.items);
+		} catch (error) {
+			console.error("Error fetching items:", error);
+		}
+	};
 
+	// Fetch items on component mount
+	useEffect(() => {
 		fetchItems();
 	}, []);
 
-	function handleDelete(index) {
+	const handleDelete = (index) => {
 		const itemId = items[index]._id;
 		const confirmDelete = window.confirm(
-			`Are you sure you want to delete this item?`
+			"Are you sure you want to delete this item?"
 		);
-
 		if (confirmDelete) {
 			axios
 				.delete(`http://localhost:5000/api/item/${itemId}`)
-				.then((response) => {
-					console.log("Item deleted:", response.data);
+				.then(() => {
 					toast.success("Item berhasil dihapus!");
-					const updatedItems = items.filter((item, idx) => idx !== index);
-					setItems(updatedItems);
+					fetchItems(); // Refetch items after deletion
 				})
 				.catch((error) => {
-					console.error("Error deleting item:", error);
 					toast.error("Something went wrong !");
+					console.error("Error deleting item:", error);
 				});
 		}
-	}
+	};
 
-	// Function to handle sorting
-	const handleSortChange = (e) => {
-		const order = e.target.value;
-		setSortOrder(order);
+	// Sort items with a three-click system for sorting, where the third click clears the sorting
+	const sortItems = (field) => {
+		if (sortField === field) {
+			const newOrder =
+				sortOrder === "asc" ? "desc" : sortOrder === "desc" ? "none" : "asc";
+			setSortOrder(newOrder);
+			if (newOrder === "none") {
+				setSortField(""); // Clear sorting if clicked the third time
+				setItems([...items]); // Reset to initial order
+				return;
+			}
+		} else {
+			setSortField(field);
+			setSortOrder("asc");
+		}
 
 		const sortedItems = [...items].sort((a, b) => {
-			if (order === "dsc") {
-				return a.stock - b.stock;
-			} else if (order === "asc") {
-				return b.stock - a.stock;
+			if (field === "item_name" || field === "supplier") {
+				return sortOrder === "asc"
+					? a[field].localeCompare(b[field])
+					: b[field].localeCompare(a[field]);
+			} else if (field === "stock") {
+				return sortOrder === "asc" ? b.stock - a.stock : a.stock - b.stock;
+			} else if (field === "reorder_level") {
+				return sortOrder === "asc"
+					? a.reorder_level - b.reorder_level
+					: b.reorder_level - a.reorder_level;
 			}
 			return 0;
 		});
-
 		setItems(sortedItems);
 	};
 
 	const handleUpdateItem = async (updatedItem) => {
 		try {
-			// Send the updated item data to the server
 			await axios.put(
 				`http://localhost:5000/api/item/${updatedItem._id}`,
 				updatedItem
 			);
-
-			// Update the local state
-			const updatedItems = items.map((item) =>
-				item._id === updatedItem._id ? updatedItem : item
-			);
-			setItems(updatedItems);
-
+			toast.success("Item berhasil diupdate!");
 			handleCloseDialog();
-
-			toast.success("Item berhasil dihapus!");
+			fetchItems(); // Refetch items after updating
 		} catch (error) {
-			console.error("Error updating item:", error);
 			toast.error("Something went wrong !");
+			console.error("Error updating item:", error);
 		}
 	};
 
+	// Filter items based on search query
+	const filteredItems = items.filter((item) =>
+		Object.values(item).some((value) =>
+			value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+		)
+	);
+
 	return (
 		<>
-			{/* Pass selectedItem to FormItem */}
 			<FormItem
 				isOpen={isDialogOpen}
 				onClose={handleCloseDialog}
 				item={selectedItem}
-				onSubmit={handleUpdateItem} // Handle the form submission
+				onSubmit={handleUpdateItem}
 			/>
 			<div className="container">
 				<Sidebar className="sidebar" />
@@ -130,13 +144,12 @@ export const Inventory = () => {
 							<div className="toolbar">
 								<div className="left">
 									<div className="search-bar">
-										<input type="text" placeholder="Search Here ..." />
-									</div>
-									<div className="filter">
-										<select value={sortOrder} onChange={handleSortChange}>
-											<option value="asc">ASC</option>
-											<option value="dsc">DSC</option>
-										</select>
+										<input
+											type="text"
+											placeholder="Search Here ..."
+											value={searchQuery}
+											onChange={(e) => setSearchQuery(e.target.value)}
+										/>
 									</div>
 								</div>
 							</div>
@@ -153,15 +166,71 @@ export const Inventory = () => {
 										</colgroup>
 										<thead>
 											<tr>
-												<th className="name">Item Name</th>
-												<th className="stock">Stock</th>
-												<th className="supplier">Supplier</th>
-												<th className="reorder">Re-order Status</th>
+												<th
+													className={`name ${
+														sortField === "item_name" ? "sorted" : ""
+													}`}
+												>
+													<button onClick={() => sortItems("item_name")}>
+														Item Name{" "}
+														{sortField === "item_name" &&
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
+													</button>
+												</th>
+												<th
+													className={`stock ${
+														sortField === "stock" ? "sorted" : ""
+													}`}
+												>
+													<button onClick={() => sortItems("stock")}>
+														Stock{" "}
+														{sortField === "stock" &&
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
+													</button>
+												</th>
+												<th
+													className={`supplier ${
+														sortField === "supplier" ? "sorted" : ""
+													}`}
+												>
+													<button onClick={() => sortItems("supplier")}>
+														Supplier{" "}
+														{sortField === "supplier" &&
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
+													</button>
+												</th>
+												<th
+													className={`reorder ${
+														sortField === "reorder_level" ? "sorted" : ""
+													}`}
+												>
+													<button onClick={() => sortItems("reorder_level")}>
+														Re-order Status{" "}
+														{sortField === "reorder_level" &&
+															(sortOrder === "asc"
+																? "▲"
+																: sortOrder === "desc"
+																? "▼"
+																: "")}
+													</button>
+												</th>
 												<th className="action">Action</th>
 											</tr>
 										</thead>
 										<tbody>
-											{items.map((item, index) => (
+											{filteredItems.map((item, index) => (
 												<tr key={item._id}>
 													<td className="name">
 														<div>{item.item_name}</div>
@@ -172,7 +241,15 @@ export const Inventory = () => {
 													<td className="supplier">
 														<span className="role-chip">{item.supplier}</span>
 													</td>
-													<td className="reorder">
+													<td
+														className={`reorder ${
+															item.reorder_level === 1
+																? "immediate"
+																: item.reorder_level === 2
+																? "caution"
+																: "plentiful"
+														}`}
+													>
 														{item.reorder_level === 1
 															? "Re-order Immediately"
 															: item.reorder_level === 2
@@ -187,7 +264,7 @@ export const Inventory = () => {
 															Edit
 														</button>
 														<button
-															className="warning-btn"
+															className="btn del"
 															onClick={() => handleDelete(index)}
 														>
 															Delete

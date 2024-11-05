@@ -199,3 +199,49 @@ th.sorted button {
 .del {
 	color: var(--warning-color);
 }
+
+.item-details {
+	background: var(--primary-bg-color);
+	border: 1px solid var(--border-color);
+	border-radius: 4px;
+	padding: 15px;
+	margin-top: 10px; /* Space between the row and the dropdown */
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.item-details h3 {
+	margin: 0 0 10px;
+	color: var(--text-color);
+}
+
+.item-details ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.item-details li {
+	padding: 5px 0;
+	color: var(--text-color);
+	border-bottom: 1px solid var(--border-color);
+}
+
+.item-details li:last-child {
+	border-bottom: none; /* Remove border from last item */
+}
+
+/* Button styles */
+.view-btn {
+	margin-left: 10px; /* Add space between items count and button */
+	background-color: var(--primary-bg-color);
+	color: var(--text-color);
+	border: 1px solid var(--border-color);
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+
+	&:hover {
+		background-color: var(--hover-bg-color); /* Define hover color */
+	}
+}
