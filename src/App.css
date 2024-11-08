@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+    color: #fff;
+}
 :root {
     --primary-bg-color: #09090B;
     --secondary-bg-color: #28282A;

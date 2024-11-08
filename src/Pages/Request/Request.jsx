@@ -211,7 +211,7 @@ export const Request = () => {
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
                         </div>
                         <div className="header-right">
-                            <button className="btn"><i className='bx bx-download icon'></i> Download CSV</button>
+                            {/* <button className="btn"><i className='bx bx-download icon'></i> Download CSV</button> */}
                         </div>
                     </header>
 
@@ -240,7 +240,7 @@ export const Request = () => {
                                 <div className="right">
                                     <div className="alert">
                                         <i className='bx bx-error'></i>
-                                        <a href='#'>Payroll data can only be added and deleted</a>
+                                        <a href='/request'>Payroll data can only be added and deleted</a>
                                     </div>
                                 </div>
                             </div>

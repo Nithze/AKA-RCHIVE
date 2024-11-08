@@ -598,7 +598,7 @@ export const Attendance = () => {
                                 <div className="right">
                                     <div className="alert">
                                         <i className='bx bx-error'></i>
-                                        <a href='#'>Absence data cannot be contested</a>
+                                        <a href='/attendance'>Absence data cannot be contested</a>
                                     </div>
                                 </div>
                             </div>

@@ -193,9 +193,9 @@ export const Dashboard = () => {
 								<div>Shift Now</div>
 								<button
 									className="btn-CSV"
-									onClick={() => toast.error("This is a sonner toast")}
 								>
-									Download CSV
+                                    <a href="/attendance">Attendance</a>
+									{/* Attendance */}
 								</button>
 							</div>
 							<div className="list-shift">

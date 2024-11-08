@@ -272,7 +272,7 @@ export const Payroll = () => {
                             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
                         </div>
                         <div className="header-right">
-                            <button className="btn"><i className='bx bx-download icon'></i> Download CSV</button>
+                            {/* <button className="btn"><i className='bx bx-download icon'></i> Download CSV</button> */}
                             <button className="btn" onClick={handleOpenDialog}><i className='bx bx-user-plus icon'></i> Add Payroll</button>
                         </div>
                     </header>
@@ -329,7 +329,7 @@ export const Payroll = () => {
                                 <div className="right">
                                     <div className="alert">
                                         <i className='bx bx-error'></i>
-                                        <a href='/dashboard'>Salary distribution for the previous period has not been distributed. Proceed to salary distribution</a>
+                                        <a href='/payroll'>Salary distribution for the previous period has not been distributed. Proceed to salary distribution</a>
                                     </div>
                                 </div>
                             </div>
