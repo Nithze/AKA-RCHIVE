@@ -21,8 +21,8 @@ const Sidebar = () => {
 			<header>
 				<div className="image-text">
 					<div className="text logo-text">
-						<span className="name">Azhar</span>
-						<span className="profession">azhar@gmail.com</span>
+						{/* <span className="name">admin</span> */}
+						{/* <span className="profession">azhar@gmail.com</span> */}
 					</div>
 				</div>
 			</header>
