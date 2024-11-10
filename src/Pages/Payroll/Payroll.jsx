@@ -269,7 +269,7 @@ export const Payroll = () => {
                     <header className="header">
                         <div className="header-left">
                             <h1>Payroll</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <p>manage all payroll</p>
                         </div>
                         <div className="header-right">
                             {/* <button className="btn"><i className='bx bx-download icon'></i> Download CSV</button> */}

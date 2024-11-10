@@ -561,7 +561,7 @@ export const Attendance = () => {
                     <header className="header">
                         <div className="header-left">
                             <h1>Attendance</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <p>attendance record</p>
                         </div>
                     </header>
 

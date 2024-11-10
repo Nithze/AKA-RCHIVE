@@ -210,7 +210,7 @@ export const Shifts = () => {
                     <header className="header">
                         <div className="header-left">
                             <h1>Manage your shifts</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <p>manage shift start - end</p>
                         </div>
                         <div className="header-right">
                             <button className="btn" onClick={handleOpenDialog}><i className='bx bx-time icon'></i>

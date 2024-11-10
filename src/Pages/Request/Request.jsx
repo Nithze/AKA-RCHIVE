@@ -208,7 +208,7 @@ export const Request = () => {
                     <header className="header">
                         <div className="header-left">
                             <h1>Request</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <p>Manage request</p>
                         </div>
                         <div className="header-right">
                             {/* <button className="btn"><i className='bx bx-download icon'></i> Download CSV</button> */}
@@ -227,14 +227,6 @@ export const Request = () => {
                                             value={searchQuery}
                                             onChange={(e) => setSearchQuery(e.target.value)} // Update search query
                                         />
-                                    </div>
-                                    <div className="filter">
-                                        <select value={filterRole} onChange={(e) => setFilterRole(e.target.value)}>
-                                            <option value="All">All Roles</option>
-                                            <option value="Role1">Role1</option>
-                                            <option value="Role2">Role2</option>
-                                            {/* Add more roles as needed */}
-                                        </select>
                                     </div>
                                 </div>
                                 <div className="right">

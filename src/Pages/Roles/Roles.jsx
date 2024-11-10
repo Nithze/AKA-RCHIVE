@@ -255,7 +255,7 @@ const Roles = () => {
                     <header className="header">
                         <div className="header-left">
                             <h1>Manage your Role & Salary</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet.</p>
+                            <p>Manage Role and salary</p>
                         </div>
                         <div className="header-right">
                             <button className="btn" onClick={handleOpenDialog}><i className='bx bx-time icon'></i>
