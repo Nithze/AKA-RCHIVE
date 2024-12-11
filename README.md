@@ -1,28 +1,12 @@
-
-![screenshot_2024-11-21T14:56:25](https://github.com/user-attachments/assets/d1300235-1278-4f6d-bf3d-17a54a6ef7ad)
-
-![screenshot_2024-11-21T14:56:54](https://github.com/user-attachments/assets/ba9b8ada-ceea-48f9-8678-8b3b5ceaa1da)
-
-![screenshot_2024-11-21T14:57:44](https://github.com/user-attachments/assets/af32b59d-ebc6-4dc5-9fe4-a545d57d2c90)
-
-![screenshot_2024-11-21T14:57:05](https://github.com/user-attachments/assets/02abfb4c-24a4-469f-881e-dc48f5047b71)
-
-![screenshot_2024-11-21T14:57:21](https://github.com/user-attachments/assets/cbce9d25-d5ee-418b-a1d0-035245e5772b)
-
-![screenshot_2024-11-21T15:11:16](https://github.com/user-attachments/assets/83bcf359-c258-49c9-b001-de8875f2b687)
-
-![screenshot_2024-11-21T14:57:56](https://github.com/user-attachments/assets/37f2bef2-13c1-432c-b2fb-92850fa2411d)
-
-![screenshot_2024-11-21T14:58:30](https://github.com/user-attachments/assets/d03cfb2f-c4f0-47fb-a6b3-96afaf6a47ec)
+![Login](https://github.com/user-attachments/assets/4775192d-d98b-4c9c-889a-c47c2e10e9c6)
+![Dashboard](https://github.com/user-attachments/assets/8f44ee37-0f2e-4ced-98b7-f126938bb90b)
+![Employee-List](https://github.com/user-attachments/assets/73480aac-d2ac-4691-abff-723e3d918287)
+![Employee-Form](https://github.com/user-attachments/assets/3851beef-2fda-4fb5-9a56-e3a106f3571a)
+![Attendance-Record](https://github.com/user-attachments/assets/e5350b99-529f-40fd-84da-b54876f125bb)
+![Request](https://github.com/user-attachments/assets/d7d75b74-547b-43d4-81d4-055d1045d45f)
+![Payroll-Form](https://github.com/user-attachments/assets/49858311-8a16-4a74-8de5-014e075107d6)
+![Stuf-Nvim](https://github.com/user-attachments/assets/2b9f13d9-2620-400b-8753-071cee6d0eb7)
+![Stuf-Lazygit](https://github.com/user-attachments/assets/75b0ea27-8fc2-47d8-be02-9274f38acadd)
+![Back-Project](https://github.com/user-attachments/assets/0bd7912a-3838-4fc5-a83c-7158e9589343)
 
 
-
-
-# React + Vite!
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
