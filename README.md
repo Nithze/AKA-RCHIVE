@@ -1,5 +1,5 @@
-![CVBZ](https://github.com/user-attachments/assets/cca20f16-0d9d-4216-a795-fadc6a8cdd20)
-![Login](https://github.com/user-attachments/assets/4775192d-d98b-4c9c-889a-c47c2e10e9c6)
+![![CVBZ](https://github.com/user-attachments/assets/9e8cab73-f2ee-4765-8abf-8ee3a4b98323)
+Login](https://github.com/user-attachments/assets/4775192d-d98b-4c9c-889a-c47c2e10e9c6)
 ![Dashboard](https://github.com/user-attachments/assets/8f44ee37-0f2e-4ced-98b7-f126938bb90b)
 ![Employee-List](https://github.com/user-attachments/assets/73480aac-d2ac-4691-abff-723e3d918287)
 ![Employee-Form](https://github.com/user-attachments/assets/3851beef-2fda-4fb5-9a56-e3a106f3571a)
